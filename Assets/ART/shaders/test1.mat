@@ -46,12 +46,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FPS: 5
+    - _FPS: 2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 20
+    - _Scale: 0.01
     - _Speed: 3
-    - _Strength: 0.2
+    - _Strength: 0.01
+    - _offsetStrength: 0.02
+    - _speedX: 2
+    - _speedXY: 9
+    - _speedYZ: 4
+    - _speedZ: 4
+    - _wobblyStrength: 0.3
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

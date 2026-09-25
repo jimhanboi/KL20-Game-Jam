@@ -38,6 +38,11 @@ public class EyeFreeRoam : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleMovement();
+    }
+
+    public void HandleMovement()
+    {
         Vector3 inputDir = ReadInput();
         Vector3 desiredMoveDir = useCameraRelativeMovement ? CameraRelative(inputDir) : inputDir;
         desiredMoveDir = ClampToRange(desiredMoveDir);

@@ -75,7 +75,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 4439d4590ae704d4cbc120aebe6e08d2, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 0ce182cec71e3c746928146687221de6, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -154,6 +154,8 @@ GameObject:
   - component: {fileID: 9012066307023228554}
   - component: {fileID: 513322663222575884}
   - component: {fileID: 1505187702542165950}
+  - component: {fileID: 7926619772051889893}
+  - component: {fileID: 2879589703353150267}
   m_Layer: 3
   m_Name: Eye
   m_TagString: Untagged
@@ -269,6 +271,7 @@ MonoBehaviour:
   returnSpeed: 12
   waypointReachThreshold: 0.3
   playerAnchor: {fileID: 0}
+  rotationReturnSpeed: 180
   minSampleDistance: 0.5
   obstacleMask:
     serializedVersion: 2
@@ -281,7 +284,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670618306450486302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93d1a81e797281b40bf6d1d177ec58b2, type: 3}
   m_Name: 
@@ -291,12 +294,12 @@ MonoBehaviour:
   maxRange: 10
   useCameraRelativeMovement: 1
   attachedCamera: {fileID: 1636545434696101988}
-  forwardKey: 119
-  backwardKey: 115
-  leftKey: 97
-  rightKey: 100
-  ascendKey: 101
-  descendKey: 113
+  forwardKey: 37
+  backwardKey: 33
+  leftKey: 15
+  rightKey: 18
+  ascendKey: 31
+  descendKey: 19
   rangeAnchor: {fileID: 0}
 --- !u!54 &9012066307023228554
 Rigidbody:
@@ -323,7 +326,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &513322663222575884
 MonoBehaviour:
@@ -352,8 +355,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EyeDeployController
   eyeTransform: {fileID: 863367879118222146}
+  gazeDetection: {fileID: 0}
   freeRoam: {fileID: 7587575955556147436}
+  eyeLook: {fileID: 7926619772051889893}
   returnPath: {fileID: 4127220970500424156}
   socket: {fileID: 0}
   splitScreenView: {fileID: 513322663222575884}
-  toggleKey: 49
+  toggleKey: 38
+--- !u!114 &7926619772051889893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670618306450486302}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8df5c0cf9280b141bb385db4e84bab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EyeRotation
+  mouseSensitivity: 0.1
+  minPitch: -80
+  maxPitch: 80
+--- !u!114 &2879589703353150267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670618306450486302}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1995213e4023c934486603bea0f066b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EyeDetection
+  isLeftEye: 1
+  eyeCamera: {fileID: 1636545434696101988}
+  gazeRange: 20
+  gazeMask:
+    serializedVersion: 2
+    m_Bits: 64
+  frustumLeewayScale: 1.1
+  occlusionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  requiredGazeDuration: 0.5

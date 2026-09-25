@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class EyeReturnPath : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class EyeReturnPath : MonoBehaviour
     [SerializeField] private float waypointReachThreshold = 0.3f;
     [Tooltip("Live socket on the player - final destination once recorded waypoints are exhausted.")]
     [SerializeField] private Transform playerAnchor;
+
+    [Header("Return Rotation")]
+    [Tooltip("Degrees per second the eye straightens out toward the socket's orientation while returning.")]
+    [SerializeField] private float rotationReturnSpeed = 180f;
 
     [Header("Sampling")]
     [Tooltip("Only record a new point after moving at least this far from the last one.")]
@@ -90,6 +95,12 @@ public class EyeReturnPath : MonoBehaviour
 
         Vector3 dir = toTarget / distance;
         rb.linearVelocity = dir * returnSpeed;
+
+        // Ease rotation back toward the socket's orientation (0,0,0 relative to the
+        // socket) over the course of the return, rather than snapping it on arrival.
+        Quaternion targetRotation = playerAnchor != null ? playerAnchor.rotation : Quaternion.identity;
+        Quaternion newRotation = Quaternion.RotateTowards(rb.rotation, targetRotation, rotationReturnSpeed * Time.fixedDeltaTime);
+        rb.MoveRotation(newRotation);
     }
 
     private Vector3 CurrentTarget()

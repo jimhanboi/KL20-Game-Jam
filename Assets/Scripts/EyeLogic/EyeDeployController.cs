@@ -7,7 +7,9 @@ public class EyeDeployController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform eyeTransform;
+    [SerializeField] private EyeDetection gazeDetection;
     [SerializeField] private EyeFreeRoam freeRoam;
+    [SerializeField] private EyeRotation eyeLook;
     [SerializeField] private EyeReturnPath returnPath;
     [Tooltip("The eye's resting attachment point on the player.")]
     [SerializeField] private Transform socket;
@@ -49,10 +51,11 @@ public class EyeDeployController : MonoBehaviour
                 Recall();
                 break;
             case EyeDeployState.Returning:
-                // Already coming back - ignore input until OnReturnComplete fires.
                 break;
         }
     }
+
+
 
     private void Deploy()
     {
@@ -60,7 +63,18 @@ public class EyeDeployController : MonoBehaviour
         eyeTransform.position = socket.position;
 
         returnPath.StartTracking(socket.position);
-        freeRoam.enabled = true;
+        if (freeRoam != null)
+        {
+            freeRoam.enabled = true;
+        }
+        if (eyeLook != null)
+        {
+            eyeLook.enabled = true;
+        }
+        if (gazeDetection != null)
+        {
+            gazeDetection.enabled = true;
+        }
         state = EyeDeployState.Roaming;
 
         splitScreenView.Show();
@@ -68,8 +82,20 @@ public class EyeDeployController : MonoBehaviour
 
     private void Recall()
     {
-        freeRoam.enabled = false;
-        returnPath.BeginReturn();
+        if (freeRoam != null)
+        {
+            freeRoam.enabled = false;
+        }
+        if (eyeLook != null)
+        {
+            eyeLook.enabled = false;
+        }
+        if (gazeDetection != null)
+        {
+            gazeDetection.enabled = false;
+        }
+
+            returnPath.BeginReturn();
         state = EyeDeployState.Returning;
     }
 
@@ -77,6 +103,7 @@ public class EyeDeployController : MonoBehaviour
     {
         eyeTransform.SetParent(socket);
         eyeTransform.localPosition = Vector3.zero;
+        eyeTransform.localRotation = Quaternion.identity;
         state = EyeDeployState.Docked;
 
         splitScreenView.Hide();

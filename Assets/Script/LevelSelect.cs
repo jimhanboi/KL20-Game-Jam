@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,10 +12,37 @@ public class LevelSelect : MonoBehaviour
     public string sceneToLoad;
     private bool isLookingAtObject = false;
 
-    // Update is called once per frame
+    [Header("Bop Settings")]
+    public float bobHeight = 0.1f;
+    public float bobSpeed = 4f;
+    public float returnSpeed = 8f;
+
+    [Header("Portal Travel Settings")]
+    public float travelDuration = 1f;
+    public float distanceFromCamera = 0.5f;
+    public float targetScale = 15f;
+    public AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Flash / Load Sync")]
+    public FlashDaze flashDaze;
+    public float delayBeforeLoad = 0.08f; // should match flashDaze's flashInDuration, so scene loads right as screen goes white
+
+    private Vector3 startPos;
+    private Vector3 startScale;
+    private bool isTransitioning = false;
+
+    void Start()
+    {
+        startPos = transform.localPosition;
+        startScale = transform.localScale;
+    }
+
     void Update()
     {
+        if (isTransitioning) return;
+
         CheckIfLookedAt();
+        HandleBop();
 
         if (isLookingAtObject && Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -39,8 +67,53 @@ public class LevelSelect : MonoBehaviour
         isLookingAtObject = false;
     }
 
+    void HandleBop()
+    {
+        if (isLookingAtObject)
+        {
+            float newY = startPos.y + Mathf.Sin(Time.time * bobSpeed) * bobHeight;
+            transform.localPosition = new Vector3(startPos.x, newY, startPos.z);
+        }
+        else
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, Time.deltaTime * returnSpeed);
+        }
+    }
+
     void SelectLevel()
     {
+        isTransitioning = true;
+        StartCoroutine(TravelToPlayerThenLoad());
+    }
+
+    IEnumerator TravelToPlayerThenLoad()
+    {
+        Vector3 startWorldPos = transform.position;
+        Vector3 targetWorldPos = PlayerCamera.transform.position +
+                                   (transform.position - PlayerCamera.transform.position).normalized * distanceFromCamera;
+
+        float t = 0f;
+        while (t < travelDuration)
+        {
+            t += Time.deltaTime;
+            float rawProgress = t / travelDuration;
+            float easedProgress = easeCurve.Evaluate(rawProgress);
+
+            transform.position = Vector3.Lerp(startWorldPos, targetWorldPos, easedProgress);
+            transform.localScale = Vector3.Lerp(startScale, startScale * targetScale, easedProgress);
+
+            yield return null;
+        }
+
+        transform.position = targetWorldPos;
+        transform.localScale = startScale * targetScale;
+
+        // portal has "touched" the player now — trigger flash + load together
+        if (flashDaze != null)
+            flashDaze.TriggerDaze();
+
+        yield return new WaitForSeconds(delayBeforeLoad);
+
         SceneManager.LoadScene(sceneToLoad);
     }
 }

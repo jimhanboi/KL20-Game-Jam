@@ -666,13 +666,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102267231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.20866081, z: -0, w: 0.97798806}
-  m_LocalPosition: {x: -3.0808902, y: 0.060449958, z: 0.09246063}
+  m_LocalRotation: {x: -0, y: -0.47765127, z: -0, w: 0.87854946}
+  m_LocalPosition: {x: -2.86, y: 0.060449958, z: -0.57}
   m_LocalScale: {x: 0.5485, y: 1, z: 0.30793998}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 258968885}
-  m_LocalEulerAnglesHint: {x: 0, y: -24.088, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -57.064, z: 0}
 --- !u!114 &1102267236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,6 +688,9 @@ MonoBehaviour:
   PlayerCamera: {fileID: 916332292}
   interactDistance: 3
   sceneToLoad: Level1
+  bobHeight: 0.1
+  bobSpeed: 4
+  returnSpeed: 8
 --- !u!1 &1571532402
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +798,7 @@ Transform:
   m_GameObject: {fileID: 1571532402}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6798897, y: 0.060449958, z: 0.64945984}
+  m_LocalPosition: {x: -1.5380001, y: 0.060449958, z: 0.335001}
   m_LocalScale: {x: 0.5485, y: 1, z: 0.30794}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -828,6 +831,9 @@ MonoBehaviour:
   PlayerCamera: {fileID: 916332292}
   interactDistance: 3
   sceneToLoad: 
+  bobHeight: 0.1
+  bobSpeed: 4
+  returnSpeed: 8
 --- !u!1 &1943670348
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,13 +939,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943670348}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.17500646, z: -0, w: 0.98456734}
-  m_LocalPosition: {x: -0.19188976, y: 0.060449958, z: 0.23445892}
+  m_LocalRotation: {x: -0, y: 0.35367274, z: -0, w: 0.93536925}
+  m_LocalPosition: {x: -0.354, y: 0.060449958, z: -0.424}
   m_LocalScale: {x: 0.54850006, y: 1, z: 0.30794}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 258968885}
-  m_LocalEulerAnglesHint: {x: 0, y: 20.158, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 41.424, z: 0}
 --- !u!114 &1943670353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,6 +961,9 @@ MonoBehaviour:
   PlayerCamera: {fileID: 0}
   interactDistance: 3
   sceneToLoad: 
+  bobHeight: 0.1
+  bobSpeed: 4
+  returnSpeed: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

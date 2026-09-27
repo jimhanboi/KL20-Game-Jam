@@ -2,14 +2,15 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class LevelSelect : MonoBehaviour
 {
     public Camera PlayerCamera;
+    public Transform PlayerRoot; // the object that actually moves (parent of the camera, e.g. your "Player" object)
+    public CharacterController playerController; // optional, only if your player uses one
 
     public float interactDistance = 3f;
-    public string sceneToLoad;
+    public Transform destinationPoint; // where the player teleports to
     private bool isLookingAtObject = false;
 
     [Header("Bop Settings")]
@@ -23,9 +24,11 @@ public class LevelSelect : MonoBehaviour
     public float targetScale = 15f;
     public AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [Header("Flash / Load Sync")]
+    [Header("Flash / Teleport Sync")]
     public FlashDaze flashDaze;
-    public float delayBeforeLoad = 0.08f; // should match flashDaze's flashInDuration, so scene loads right as screen goes white
+    public float delayBeforeTeleport = 0.08f;
+    public float fadeInDuration = 0.3f;
+    public float fadeOutDuration = 0.3f;
 
     private Vector3 startPos;
     private Vector3 startScale;
@@ -83,10 +86,10 @@ public class LevelSelect : MonoBehaviour
     void SelectLevel()
     {
         isTransitioning = true;
-        StartCoroutine(TravelToPlayerThenLoad());
+        StartCoroutine(TravelToPlayerThenTeleport());
     }
 
-    IEnumerator TravelToPlayerThenLoad()
+    IEnumerator TravelToPlayerThenTeleport()
     {
         Vector3 startWorldPos = transform.position;
         Vector3 targetWorldPos = PlayerCamera.transform.position +
@@ -108,8 +111,38 @@ public class LevelSelect : MonoBehaviour
         transform.position = targetWorldPos;
         transform.localScale = startScale * targetScale;
 
-        yield return ScreenFader.Instance.FadeIn(0.3f);
+        yield return new WaitForSeconds(delayBeforeTeleport);
 
-        SceneManager.LoadScene(sceneToLoad);
+        // fade to white
+        yield return ScreenFader.Instance.FadeIn(fadeInDuration);
+
+        // teleport the player
+        TeleportPlayer();
+
+        // fade back to normal
+        yield return ScreenFader.Instance.FadeOut(fadeOutDuration);
+
+        // reset portal so it can be used again
+        transform.position = startWorldPos;
+        transform.localScale = startScale;
+        isTransitioning = false;
+    }
+
+    void TeleportPlayer()
+    {
+        if (playerController != null)
+        {
+            // CharacterController must be disabled before moving its transform directly,
+            // otherwise it fights against the manual position change
+            playerController.enabled = false;
+            PlayerRoot.position = destinationPoint.position;
+            PlayerRoot.rotation = destinationPoint.rotation;
+            playerController.enabled = true;
+        }
+        else
+        {
+            PlayerRoot.position = destinationPoint.position;
+            PlayerRoot.rotation = destinationPoint.rotation;
+        }
     }
 }

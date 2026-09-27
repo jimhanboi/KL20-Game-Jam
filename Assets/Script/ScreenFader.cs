@@ -19,6 +19,8 @@ public class ScreenFader : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        fadeCanvasGroup.alpha = 0f; // ensure it starts invisible
     }
 
     void OnEnable()
@@ -33,13 +35,17 @@ public class ScreenFader : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // automatically fade out once the new scene has loaded
         StartCoroutine(Fade(1f, 0f, defaultFadeOutDuration));
     }
 
     public IEnumerator FadeIn(float duration)
     {
         yield return Fade(0f, 1f, duration);
+    }
+
+    public IEnumerator FadeOut(float duration)
+    {
+        yield return Fade(1f, 0f, duration);
     }
 
     IEnumerator Fade(float from, float to, float duration)

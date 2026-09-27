@@ -6,21 +6,20 @@ using UnityEngine;
 /// gazing at it. Requires a Collider on this object (or a child) for EyeDetection to
 /// find it - not enforced here since one may already exist on the mesh.
 ///
-/// Implements both ILeftEyeVisible and IRightEyeVisible using EXPLICIT interface
-/// implementation. Both interfaces declare identically-signed OnGazeEnter/OnGazeExit
-/// (inherited from IGazeReceiver), so a normal "public void OnGazeEnter()" would
-/// satisfy both interfaces with the SAME method - making it impossible to tell which
-/// eye triggered it. Writing "void ILeftEyeVisible.OnGazeEnter()" keeps the two paths
-/// genuinely separate.
+/// Implements IEyeDetect directly - a single instance now reacts to both eyes, so
+/// left/right gazing state is tracked separately and RefreshColor decides priority
+/// between them.
 /// </summary>
 [RequireComponent(typeof(Renderer))]
-public class TestRightDetection : MonoBehaviour, IRightEyeVisible
+public class TestDetection : MonoBehaviour, IEyeDetect
 {
+    [SerializeField] private Color leftEyeColor = Color.green;
     [SerializeField] private Color rightEyeColor = Color.blue;
     [SerializeField] FlashDaze flash;
 
     private Renderer targetRenderer;
     private Color originalColor;
+    private bool leftGazing;
     private bool rightGazing;
 
     private void Awake()
@@ -29,17 +28,19 @@ public class TestRightDetection : MonoBehaviour, IRightEyeVisible
         originalColor = targetRenderer.material.color; // .material auto-instances a copy, so this won't affect other objects sharing the same material asset
     }
 
-
     private void RefreshColor()
     {
-
+        // Right eye takes priority if both happen to be gazing at once - arbitrary but
+        // deterministic; swap the order below if left should win instead.
         if (rightGazing)
             targetRenderer.material.color = rightEyeColor;
+        else if (leftGazing)
+            targetRenderer.material.color = leftEyeColor;
         else
             targetRenderer.material.color = originalColor;
     }
 
-    public void OnGazeEnter(EyeDetection detectingCam)
+    public void OnRightEnter(EyeDetection detectingCam)
     {
         rightGazing = true;
         CameraShake shake = detectingCam.GetComponentInChildren<CameraShake>();
@@ -47,9 +48,21 @@ public class TestRightDetection : MonoBehaviour, IRightEyeVisible
         RefreshColor();
     }
 
-    public void OnGazeExit(EyeDetection detectingCam)
+    public void OnRightExit(EyeDetection detectingCam)
     {
         rightGazing = false;
+        RefreshColor();
+    }
+
+    public void OnLeftEnter(EyeDetection detectingCam)
+    {
+        leftGazing = true;
+        RefreshColor();
+    }
+
+    public void OnLeftExit(EyeDetection detectingCam)
+    {
+        leftGazing = false;
         RefreshColor();
     }
 }

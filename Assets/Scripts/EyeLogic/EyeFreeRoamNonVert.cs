@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class EyeFreeRoamNonVert : MonoBehaviour
@@ -21,6 +23,14 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     [Tooltip("The eye's socket/attachment point on the player - range is measured from here.")]
     [SerializeField] private Transform rangeAnchor;
 
+    [Header("Warning / Death")]
+    [SerializeField] private float minWarningRange;
+    [SerializeField] private Image dyingImg;
+
+    private bool underWarning;
+    private bool isDead;
+    public event Action OnDeath;
+
     private Rigidbody rb;
     private Vector3 currentVelocity;
 
@@ -34,8 +44,34 @@ public class EyeFreeRoamNonVert : MonoBehaviour
             attachedCamera = GetComponentInChildren<Camera>();
     }
 
+    private void Update()
+    {
+        if (isDead) return;
+
+        float distance = Vector3.Distance(rangeAnchor.position, rb.position);
+
+        UpdateDyingImageAlpha(distance);
+
+        if (!underWarning && distance >= minWarningRange)
+        {
+            underWarning = true;
+            OnEnterWarning();
+        }
+        else if (underWarning && distance < minWarningRange)
+        {
+            underWarning = false;
+            OnExitWarning();
+        }
+
+        if (distance >= maxRange)
+        {
+            Die();
+        }
+    }
+
     private void FixedUpdate()
     {
+        if (isDead) return;
         HandleMovement();
     }
 
@@ -45,7 +81,6 @@ public class EyeFreeRoamNonVert : MonoBehaviour
 
         Vector3 inputDir = ReadInput();
         Vector3 desiredMoveDir = useCameraRelativeMovement ? CameraRelative(inputDir) : inputDir;
-        desiredMoveDir = ClampToRange(desiredMoveDir);
 
         Vector3 targetVelocity = desiredMoveDir * roamSpeed;
 
@@ -90,30 +125,44 @@ public class EyeFreeRoamNonVert : MonoBehaviour
         return result.sqrMagnitude > 1f ? result.normalized : result;
     }
 
-    private Vector3 ClampToRange(Vector3 moveDir)
+    private void Die()
     {
-        if (rangeAnchor == null || moveDir.sqrMagnitude < 0.0001f)
-            return moveDir;
-
-        Vector3 fromAnchor = rb.position - rangeAnchor.position;
-        float distance = fromAnchor.magnitude;
-
-        if (distance < maxRange)
-            return moveDir;
-
-        Vector3 outwardDir = fromAnchor.normalized;
-        float outwardComponent = Vector3.Dot(moveDir, outwardDir);
-
-        if (outwardComponent > 0f)
-            moveDir -= outwardDir * outwardComponent;
-
-        return moveDir;
+        if (isDead) return;
+        isDead = true;
+        OnDeath?.Invoke();
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnEnterWarning()
     {
-        if (rangeAnchor == null) return;
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(rangeAnchor.position, maxRange);
+        // Hook for entering the warning zone (SFX, haptics, etc.)
     }
+
+    private void OnExitWarning()
+    {
+        // Hook for exiting the warning zone back to safety.
+    }
+
+    private void UpdateDyingImageAlpha(float distance)
+    {
+        if (dyingImg == null) return;
+
+        float alpha;
+        if (distance <= minWarningRange)
+        {
+            alpha = 0f;
+        }
+        else if (distance >= maxRange)
+        {
+            alpha = 1f;
+        }
+        else
+        {
+            alpha = (distance - minWarningRange) / (maxRange - minWarningRange);
+        }
+
+        Color c = dyingImg.color;
+        c.a = alpha;
+        dyingImg.color = c;
+    }
+
 }

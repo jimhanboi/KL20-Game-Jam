@@ -174,7 +174,7 @@ PrefabInstance:
     - target: {fileID: -67318117536643122, guid: 46d319964f02bf840acac8d7ed2b3e2f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3be6c9d82aa464b4c8289cff431c58bb, type: 2}
+      objectReference: {fileID: 2100000, guid: 28796f534cb6fca4790a15a04c29712a, type: 2}
     - target: {fileID: 919132149155446097, guid: 46d319964f02bf840acac8d7ed2b3e2f, type: 3}
       propertyPath: m_Name
       value: EyeBall (1)

@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSourceLook
   playerCamera: {fileID: 2001112038}
-  distortionEffect: {fileID: 0}
+  flashDaze: {fileID: 901772452}
   lookDistance: 15
   triggerCooldown: 3
 --- !u!114 &1024271762

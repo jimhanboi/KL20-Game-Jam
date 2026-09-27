@@ -1,25 +1,27 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MouseLook : MonoBehaviour
 {
     [Header("Mouse Look Settings")]
-    public float mouseSensitivity = 100f;
-    public float lookXLimit = 80f; // how far up/down you can look
+    public float mouseSensitivity = 0.02f; 
+    public float lookXLimit = 80f;
 
     private float rotationX = 0f;
     private float rotationY = 0f;
 
     void Start()
     {
-        // lock and hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
+        float mouseX = mouseDelta.x * mouseSensitivity;
+        float mouseY = mouseDelta.y * mouseSensitivity;
 
         rotationY += mouseX;
         rotationX -= mouseY;

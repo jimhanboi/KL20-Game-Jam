@@ -1,43 +1,46 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class levelSelect : MonoBehaviour
+public class LevelSelect : MonoBehaviour
 {
-    [Header("Bob Settings")]
-    public float bobHeight = 0.2f;
-    public float bobSpeed = 4f;
+    public Camera PlayerCamera;
 
-    [Header("Hover Detection")]
-    public bool onlyWhenHovered = true;
+    public float interactDistance = 3f;
+    public string sceneToLoad;
+    private bool isLookingAtObject = false;
 
-    private Vector3 startPos;
-    private bool isHovering = false;
-
-    void Start()
-    {
-        startPos = transform.localPosition;
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (!onlyWhenHovered || isHovering)
+        CheckIfLookedAt();
+
+        if (isLookingAtObject && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            float newY = startPos.y + Mathf.Sin(Time.time * bobSpeed) * bobHeight;
-            transform.localPosition = new Vector3(startPos.x, newY, startPos.z);
-        }
-        else
-        {
-            // smoothly return to rest position when not hovering
-            transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, Time.deltaTime * 8f);
+            SelectLevel();
         }
     }
 
-    void OnMouseEnter()
+    void CheckIfLookedAt()
     {
-        isHovering = true;
+        Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, interactDistance))
+        {
+            if (hit.transform == transform)
+            {
+                isLookingAtObject = true;
+                return;
+            }
+        }
+
+        isLookingAtObject = false;
     }
 
-    void OnMouseExit()
+    void SelectLevel()
     {
-        isHovering = false;
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

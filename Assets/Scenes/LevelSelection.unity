@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 916332292}
   - component: {fileID: 916332291}
   - component: {fileID: 916332294}
+  - component: {fileID: 916332295}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -417,6 +418,22 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &916332295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916332290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.PhysicsRaycaster
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1054630594
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,8 +558,9 @@ GameObject:
   - component: {fileID: 1102267234}
   - component: {fileID: 1102267233}
   - component: {fileID: 1102267232}
+  - component: {fileID: 1102267236}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -640,6 +658,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 258968885}
   m_LocalEulerAnglesHint: {x: 0, y: -24.088, z: 0}
+--- !u!114 &1102267236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102267231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f3db84253b9c44492101ef728eefab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::levelSelectCube
+  sceneToLoad: SampleScene
+  bobbingHeight: 0.2
+  bobbingSpeed: 4
+  scaleonHover: 1.2
+  transitionSpeed: 5
 --- !u!1 &1571532402
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,8 +687,9 @@ GameObject:
   - component: {fileID: 1571532405}
   - component: {fileID: 1571532404}
   - component: {fileID: 1571532403}
+  - component: {fileID: 1571532407}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Level2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,6 +787,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 258968885}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571532407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571532402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dba05fc7d278254292dfe0047f7975a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1943670348
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +812,7 @@ GameObject:
   - component: {fileID: 1943670350}
   - component: {fileID: 1943670349}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Level3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

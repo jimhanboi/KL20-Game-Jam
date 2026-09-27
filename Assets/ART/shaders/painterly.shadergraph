@@ -594,20 +594,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "5a579d19a0c14e7eabe0d2c3155bb1f8"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "0f1db66cddce4a4195c7f25f20227eba"
-                },
-                "m_SlotId": 2
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "5b3c840a1597449d9fa25295afc2a25d"
                 },
                 "m_SlotId": 2
@@ -1943,7 +1929,7 @@
     "m_ShaderOutputName": "B",
     "m_StageCapability": 3,
     "m_Value": {
-        "e00": 0.05000000074505806,
+        "e00": 0.009999999776482582,
         "e01": 2.0,
         "e02": 2.0,
         "e03": 2.0,
@@ -3811,8 +3797,8 @@
     "m_ObjectId": "3b12c76e5f694238a2bbda04af52a760",
     "m_Title": "Add rim light and outline",
     "m_Position": {
-        "x": -499.199951171875,
-        "y": 649.60009765625
+        "x": -499.3333740234375,
+        "y": 651.3333740234375
     }
 }
 
@@ -4015,8 +4001,8 @@
     "m_ObjectId": "497743452fab411d84aece9e9a5b3f7d",
     "m_Title": "painterly effect",
     "m_Position": {
-        "x": -2624.7998046875,
-        "y": -1024.800048828125
+        "x": -2624.666748046875,
+        "y": -1023.3333129882813
     }
 }
 
@@ -4182,8 +4168,8 @@
     "m_ObjectId": "4ec96c96a99f4730b5f2949365554b4e",
     "m_Title": "wobbly effect",
     "m_Position": {
-        "x": -2252.000244140625,
-        "y": -2691.2001953125
+        "x": -2251.999755859375,
+        "y": -2689.999755859375
     }
 }
 
@@ -6474,8 +6460,8 @@
     "m_ShaderOutputName": "Tiling",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 3.0,
-        "y": 3.0
+        "x": 7.0,
+        "y": 7.0
     },
     "m_DefaultValue": {
         "x": 1.0,

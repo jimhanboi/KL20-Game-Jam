@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 513322663222575884}
   - component: {fileID: 1505187702542165950}
   - component: {fileID: 7926619772051889893}
+  - component: {fileID: 4439430032827335850}
   - component: {fileID: 2879589703353150267}
   m_Layer: 3
   m_Name: Eye
@@ -349,19 +350,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5670618306450486302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f894be43961e9694ebf90ba55916a3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EyeDeployController
   eyeTransform: {fileID: 863367879118222146}
-  gazeDetection: {fileID: 0}
-  freeRoam: {fileID: 7587575955556147436}
+  gazeDetection: {fileID: 2879589703353150267}
+  freeRoam: {fileID: 4439430032827335850}
   eyeLook: {fileID: 7926619772051889893}
   returnPath: {fileID: 4127220970500424156}
+  rb: {fileID: 9012066307023228554}
   socket: {fileID: 0}
   splitScreenView: {fileID: 513322663222575884}
-  toggleKey: 38
+  toggleKey: 20
 --- !u!114 &7926619772051889893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +379,28 @@ MonoBehaviour:
   mouseSensitivity: 0.1
   minPitch: -80
   maxPitch: 80
+--- !u!114 &4439430032827335850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670618306450486302}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63798dc9c083af849a8720da5405be83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EyeFreeRoamNonVert
+  roamSpeed: 8
+  roamAcceleration: 20
+  maxRange: 10
+  useCameraRelativeMovement: 1
+  attachedCamera: {fileID: 1636545434696101988}
+  forwardKey: 37
+  backwardKey: 33
+  leftKey: 15
+  rightKey: 18
+  rangeAnchor: {fileID: 0}
 --- !u!114 &2879589703353150267
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,9 +10,10 @@ public class EyeDeployController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform eyeTransform;
     [SerializeField] private EyeDetection gazeDetection;
-    [SerializeField] private EyeFreeRoam freeRoam;
+    [SerializeField] private EyeFreeRoamNonVert freeRoam;
     [SerializeField] private EyeRotation eyeLook;
     [SerializeField] private EyeReturnPath returnPath;
+    [SerializeField] private Rigidbody rb;
     [Tooltip("The eye's resting attachment point on the player.")]
     [SerializeField] private Transform socket;
     [Tooltip("This eye's own camera/panel toggle - not shared with the other eye.")]
@@ -19,6 +22,7 @@ public class EyeDeployController : MonoBehaviour
     [Header("Input")]
     [Tooltip("Pressed once to deploy (throw out) this eye; pressed again to recall it.")]
     [SerializeField] private Key toggleKey = Key.Digit1;
+    public event Action<EyeDeployController> OnReturnedEye;
 
     private EyeDeployState state = EyeDeployState.Docked;
     public EyeDeployState State => state;
@@ -36,7 +40,7 @@ public class EyeDeployController : MonoBehaviour
     private void Update()
     {
         var kb = Keyboard.current;
-        if (kb != null && kb[toggleKey].wasPressedThisFrame)
+        if (kb != null && kb[toggleKey].wasPressedThisFrame && state == EyeDeployState.Roaming)
             Toggle();
     }
 
@@ -55,10 +59,9 @@ public class EyeDeployController : MonoBehaviour
         }
     }
 
-
-
-    private void Deploy()
+    public void Deploy()
     {
+        rb.useGravity = true;
         eyeTransform.SetParent(null); // free from the socket so physics can move it independently
         eyeTransform.position = socket.position;
 
@@ -95,7 +98,7 @@ public class EyeDeployController : MonoBehaviour
             gazeDetection.enabled = false;
         }
 
-            returnPath.BeginReturn();
+        returnPath.BeginReturn();
         state = EyeDeployState.Returning;
     }
 
@@ -105,7 +108,43 @@ public class EyeDeployController : MonoBehaviour
         eyeTransform.localPosition = Vector3.zero;
         eyeTransform.localRotation = Quaternion.identity;
         state = EyeDeployState.Docked;
-
+        rb.useGravity = false;
         splitScreenView.Hide();
+        OnReturnedEye?.Invoke(this);
+    }
+
+    public bool IsOut()
+    {
+        return state == EyeDeployState.Roaming;
+    }
+
+    public void ActivateControl(bool activate, GameObject selectImg)
+    {
+        if (selectImg != null)
+        {
+            selectImg.SetActive(activate); // FIX: was always SetActive(true), now respects `activate`
+        }
+
+        if (activate)
+        {
+            Select();
+        }
+
+        if (freeRoam != null)
+        {
+            freeRoam.enabled = activate;
+        }
+        if (eyeLook != null)
+        {
+            eyeLook.enabled = activate;
+        }
+    }
+
+    void Select()
+    {
+        if (state == EyeDeployState.Docked)
+        {
+            Toggle();
+        }
     }
 }

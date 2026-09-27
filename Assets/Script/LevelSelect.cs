@@ -18,8 +18,8 @@ public class LevelSelect : MonoBehaviour
     public float returnSpeed = 8f;
 
     [Header("Portal Travel Settings")]
-    public float travelDuration = 1f;
-    public float distanceFromCamera = 0.5f;
+    public float travelDuration = 2f;
+    public float distanceFromCamera = 0.1f;
     public float targetScale = 15f;
     public AnimationCurve easeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
@@ -108,11 +108,7 @@ public class LevelSelect : MonoBehaviour
         transform.position = targetWorldPos;
         transform.localScale = startScale * targetScale;
 
-        // portal has "touched" the player now — trigger flash + load together
-        if (flashDaze != null)
-            flashDaze.TriggerDaze();
-
-        yield return new WaitForSeconds(delayBeforeLoad);
+        yield return ScreenFader.Instance.FadeIn(0.3f);
 
         SceneManager.LoadScene(sceneToLoad);
     }

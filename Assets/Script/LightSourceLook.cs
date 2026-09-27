@@ -6,7 +6,7 @@ public class LightSourceLook : MonoBehaviour
     public FlashDaze flashDaze;
     public float lookDistance = 15f;
     public float triggerCooldown = 3f; // prevents re-triggering every single frame while staring
-
+    public CameraShake cameraShake;
     private float cooldownTimer = 0f;
 
     void Update()
@@ -24,7 +24,7 @@ public class LightSourceLook : MonoBehaviour
         {
             if (hit.transform == transform && cooldownTimer <= 0f)
             {
-                flashDaze.TriggerDaze();    
+                flashDaze.TriggerDaze(cameraShake);    
                 cooldownTimer = triggerCooldown;
             }
         }

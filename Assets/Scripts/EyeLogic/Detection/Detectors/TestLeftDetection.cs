@@ -37,13 +37,13 @@ public class TestLeftDetection : MonoBehaviour, ILeftEyeVisible
             targetRenderer.material.color = originalColor;
     }
 
-    public void OnGazeEnter()
+    public void OnGazeEnter(EyeDetection eye)
     {
         leftGazing = true;
         RefreshColor();
     }
 
-    public void OnGazeExit()
+    public void OnGazeExit(EyeDetection detectingCam)
     {
         leftGazing = false;
         RefreshColor();

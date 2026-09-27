@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashDaze
   distortionVolume: {fileID: 901772450}
-  cameraShake: {fileID: 2001112042}
   flashExposure: 3
   flashInDuration: 0.08
   flashOutDuration: 0.6
@@ -321,6 +320,7 @@ MonoBehaviour:
   flashDaze: {fileID: 901772452}
   lookDistance: 15
   triggerCooldown: 3
+  cameraShake: {fileID: 2001112042}
 --- !u!114 &1024271762
 MonoBehaviour:
   m_ObjectHideFlags: 0

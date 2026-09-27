@@ -1,7 +1,7 @@
 public interface IEyeDetect
 {
-    void OnGazeEnter();
-    void OnGazeExit();
+    void OnGazeEnter(EyeDetection detectingCam);
+    void OnGazeExit(EyeDetection detectionCam);
 }
 
 public interface ILeftEyeVisible : IEyeDetect { }

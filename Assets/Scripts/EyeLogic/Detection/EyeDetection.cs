@@ -63,7 +63,7 @@ public class EyeDetection : MonoBehaviour
                 {
                     dwellTimers.Remove(target);
                     visibleTargets.Add(target);
-                    target.OnGazeEnter();
+                    target.OnGazeEnter(this);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ public class EyeDetection : MonoBehaviour
         }
         foreach (var target in scratchRemovalList)
         {
-            target.OnGazeExit();
+            target.OnGazeExit(this);
             visibleTargets.Remove(target);
         }
     }
@@ -151,7 +151,7 @@ public class EyeDetection : MonoBehaviour
         // If the eye is recalled mid-gaze, make sure everything it was looking at gets
         // told the gaze ended - otherwise they're stuck reacting as if still watched.
         foreach (var target in visibleTargets)
-            target.OnGazeExit();
+            target.OnGazeExit(this);
 
         visibleTargets.Clear();
         dwellTimers.Clear();

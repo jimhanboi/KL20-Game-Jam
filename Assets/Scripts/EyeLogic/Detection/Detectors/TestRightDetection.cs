@@ -17,6 +17,7 @@ using UnityEngine;
 public class TestRightDetection : MonoBehaviour, IRightEyeVisible
 {
     [SerializeField] private Color rightEyeColor = Color.blue;
+    [SerializeField] FlashDaze flash;
 
     private Renderer targetRenderer;
     private Color originalColor;
@@ -38,13 +39,15 @@ public class TestRightDetection : MonoBehaviour, IRightEyeVisible
             targetRenderer.material.color = originalColor;
     }
 
-    public void OnGazeEnter()
+    public void OnGazeEnter(EyeDetection detectingCam)
     {
         rightGazing = true;
+        CameraShake shake = detectingCam.GetComponentInChildren<CameraShake>();
+        flash.TriggerDaze(shake);
         RefreshColor();
     }
 
-    public void OnGazeExit()
+    public void OnGazeExit(EyeDetection detectingCam)
     {
         rightGazing = false;
         RefreshColor();

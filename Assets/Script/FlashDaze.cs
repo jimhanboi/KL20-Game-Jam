@@ -8,7 +8,6 @@ public class FlashDaze : MonoBehaviour
 {
     [Header("References")]
     public Volume distortionVolume;
-    public CameraShake cameraShake;
 
     [Header("Flash Settings")]
     public float flashExposure = 3f;      // how bright the white flash spikes
@@ -30,11 +29,14 @@ public class FlashDaze : MonoBehaviour
         distortionVolume.profile.TryGet(out colorAdjustments);
     }
 
-    public void TriggerDaze()
+    public void TriggerDaze(CameraShake cameraShake)
     {
         // shake (lighter/quicker than a big impact shake)
         if (cameraShake != null)
+        {
             cameraShake.Shake(shakeDuration, shakeStrength);
+            //Debug.Log(cameraShake.transform.parent.name);
+        }
 
         // white flash
         DOTween.To(() => colorAdjustments.postExposure.value,

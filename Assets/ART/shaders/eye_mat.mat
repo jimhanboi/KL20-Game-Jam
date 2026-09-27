@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColour:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 99357b7dbb303cb4d9f2709211ef1f15, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_c8e9df6c4f7e4d84a628c0b55ff94fbc_Texture_1_Texture2D:
@@ -62,10 +62,10 @@ Material:
     - _FPS: 4
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _offsetStrength: 0.02
+    - _offsetStrength: 0
     - _speedXY: 9
     - _speedZ: 4
-    - _wobblyStrength: 0.4
+    - _wobblyStrength: 0
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -244,7 +244,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 645a29a6401b0904aa28de004ed5c373, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -505,6 +505,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 950933012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &534533017 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7181885649133812683, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+  m_PrefabInstance: {fileID: 1556624932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &674763167
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,11 +691,16 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 4
   shakeDuration: 1
-  Audio: {fileID: 0}
+  Audio: {fileID: 294998631}
   audioStart: 0.3
 --- !u!4 &950933012 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1994778996741529995, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+  m_PrefabInstance: {fileID: 1556624932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &973377225 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7453287310118566128, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
   m_PrefabInstance: {fileID: 1556624932}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1018921099 stripped
@@ -1201,6 +1211,14 @@ PrefabInstance:
       value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3143149542406307995, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      propertyPath: moveSource
+      value: 
+      objectReference: {fileID: 973377225}
+    - target: {fileID: 3143149542406307995, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      propertyPath: moveLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d42301b264724eb45b0962280db38ead, type: 3}
+    - target: {fileID: 3143149542406307995, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
       propertyPath: minWarningRange
       value: 10
       objectReference: {fileID: 0}
@@ -1208,6 +1226,18 @@ PrefabInstance:
       propertyPath: minVignetteIntensity
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 3412319461613290400, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      propertyPath: maxRange
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3412319461613290400, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      propertyPath: moveSource
+      value: 
+      objectReference: {fileID: 534533017}
+    - target: {fileID: 3412319461613290400, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      propertyPath: moveLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d42301b264724eb45b0962280db38ead, type: 3}
     - target: {fileID: 3618000615624895337, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
       propertyPath: m_Name
       value: Player (1)
@@ -1271,6 +1301,10 @@ PrefabInstance:
     - target: {fileID: 6239380190005834472, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
       propertyPath: strength
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181885649133812683, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8573148587501784572, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
       propertyPath: priority
@@ -1474,7 +1508,7 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 4
   shakeDuration: 1
-  Audio: {fileID: 0}
+  Audio: {fileID: 294998631}
   audioStart: 0.3
 --- !u!4 &1944103339
 Transform:

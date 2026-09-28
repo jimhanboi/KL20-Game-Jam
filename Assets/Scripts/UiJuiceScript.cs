@@ -71,7 +71,13 @@ public class UIButtonJuice : MonoBehaviour,
 
     void OnDisable() => Apply(0f, 0f);
 
-    public void OnPointerEnter(PointerEventData e) { if (CanInteract()) hovered = true; }
+    public void OnPointerEnter(PointerEventData e)
+    {
+        GameObject top = e.pointerCurrentRaycast.gameObject;
+        Debug.Log($"Hover: {gameObject.name} (topmost hit: {(top != null ? top.name : "none")})", this);
+        if (CanInteract()) hovered = true;
+    }
+
     public void OnPointerExit(PointerEventData e) { hovered = false; }
 
     public void OnPointerClick(PointerEventData e)

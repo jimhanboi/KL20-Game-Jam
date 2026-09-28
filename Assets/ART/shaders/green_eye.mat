@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9067582524254129504
+--- !u!114 &-1191755112578474087
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,9 +20,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: eye_mat
+  m_Name: green_eye
   m_Shader: {fileID: -6465566751694194690, guid: a975cdc310dcfdf4ba320744a54c8e91, type: 3}
-  m_Parent: {fileID: 2100000, guid: 28796f534cb6fca4790a15a04c29712a, type: 2}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -38,11 +38,34 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColour:
-        m_Texture: {fileID: 2800000, guid: 99357b7dbb303cb4d9f2709211ef1f15, type: 3}
+        m_Texture: {fileID: 2800000, guid: da2873bc66c414f498a2749a3542bf7a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c8e9df6c4f7e4d84a628c0b55ff94fbc_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 52f523aa04b2737488a6d940045147a3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _FPS: 4
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _outline: 0
+    - _rimLight: 0
+    - _wobbly: 0
+    - _wobblyStrength: 0.001
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

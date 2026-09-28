@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TargetGizmo : MonoBehaviour
 {
-    public Transform target;   // drag TargetA (or leave empty to use itself, see below)
+    public Transform target;   // drag TargetA (or leave empty to use itself)
 
     void OnDrawGizmos()
     {

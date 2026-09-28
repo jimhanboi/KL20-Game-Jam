@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,7 +46,7 @@ public class LevelSelect : MonoBehaviour
         CheckIfLookedAt();
         HandleBop();
 
-        if (isLookingAtObject && Mouse.current.leftButton.wasPressedThisFrame)
+        if (isLookingAtObject && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             SelectLevel();
         }
@@ -93,7 +92,7 @@ public class LevelSelect : MonoBehaviour
     {
         Vector3 startWorldPos = transform.position;
         Vector3 targetWorldPos = PlayerCamera.transform.position +
-                                   (transform.position - PlayerCamera.transform.position).normalized * distanceFromCamera;
+                                 (transform.position - PlayerCamera.transform.position).normalized * distanceFromCamera;
 
         float t = 0f;
         while (t < travelDuration)
@@ -113,14 +112,18 @@ public class LevelSelect : MonoBehaviour
 
         yield return new WaitForSeconds(delayBeforeTeleport);
 
+        // Only fade if the fader exists and is intact
+        ScreenFader fader = ScreenFader.Instance;
+        bool canFade = fader != null && fader.fadeCanvasGroup != null;
+
         // fade to white
-        yield return ScreenFader.Instance.FadeIn(fadeInDuration);
+        if (canFade) yield return fader.FadeIn(fadeInDuration);
 
         // teleport the player
         TeleportPlayer();
 
         // fade back to normal
-        yield return ScreenFader.Instance.FadeOut(fadeOutDuration);
+        if (canFade) yield return fader.FadeOut(fadeOutDuration);
 
         // reset portal so it can be used again
         transform.position = startWorldPos;

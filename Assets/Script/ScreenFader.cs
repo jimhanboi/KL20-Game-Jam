@@ -9,10 +9,13 @@ public class ScreenFader : MonoBehaviour
     public CanvasGroup fadeCanvasGroup;
     public float defaultFadeOutDuration = 0.6f;
 
+    private int fadeId;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
         {
+            Debug.Log("Duplicate ScreenFader destroyed: " + gameObject.scene.name);
             Destroy(gameObject);
             return;
         }
@@ -21,20 +24,19 @@ public class ScreenFader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         fadeCanvasGroup.alpha = 0f; // ensure it starts invisible
-    }
 
-    void OnEnable()
-    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        if (Instance == this) Instance = null;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (this != Instance || fadeCanvasGroup == null) return;
         StartCoroutine(Fade(1f, 0f, defaultFadeOutDuration));
     }
 
@@ -50,16 +52,22 @@ public class ScreenFader : MonoBehaviour
 
     IEnumerator Fade(float from, float to, float duration)
     {
+        if (fadeCanvasGroup == null) yield break;
+
+        int myId = ++fadeId; // any newer fade cancels this one
         float t = 0f;
         fadeCanvasGroup.alpha = from;
 
         while (t < duration)
         {
-            t += Time.deltaTime;
+            if (fadeCanvasGroup == null || myId != fadeId) yield break;
+
+            t += Time.unscaledDeltaTime;
             fadeCanvasGroup.alpha = Mathf.Lerp(from, to, t / duration);
             yield return null;
         }
 
-        fadeCanvasGroup.alpha = to;
+        if (fadeCanvasGroup != null && myId == fadeId)
+            fadeCanvasGroup.alpha = to;
     }
 }

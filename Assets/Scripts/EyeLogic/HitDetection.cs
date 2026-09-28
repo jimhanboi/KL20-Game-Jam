@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HitDetection : MonoBehaviour
@@ -13,5 +14,13 @@ public class HitDetection : MonoBehaviour
         {
             freeRoam.Die();
         }
+
+        if (other.name.Contains("PortalCollider"))
+        {
+            Debug.Log ("Portal Collider Hit");
+        }
+
     }
+
+
 }

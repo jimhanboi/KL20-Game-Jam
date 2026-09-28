@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 public class LevelSelect : MonoBehaviour
 {
     public Camera PlayerCamera;
-    public Transform PlayerRoot; // the object that actually moves (parent of the camera, e.g. your "Player" object)
+    public Transform EyeRoot; // the object that actually moves (parent of the camera, e.g. your "Player" object)
     public CharacterController playerController; // optional, only if your player uses one
+    [SerializeField] bool leftEyeRequired;
 
     public float interactDistance = 3f;
     public Transform destinationPoint; // where the player teleports to
@@ -32,6 +33,8 @@ public class LevelSelect : MonoBehaviour
     private Vector3 startPos;
     private Vector3 startScale;
     private bool isTransitioning = false;
+
+    [SerializeField] EyeControllerManager manager; // assign in the inspector
 
     void Start()
     {
@@ -138,14 +141,14 @@ public class LevelSelect : MonoBehaviour
             // CharacterController must be disabled before moving its transform directly,
             // otherwise it fights against the manual position change
             playerController.enabled = false;
-            PlayerRoot.position = destinationPoint.position;
-            PlayerRoot.rotation = destinationPoint.rotation;
+            EyeRoot.position = destinationPoint.position;
+            EyeRoot.rotation = destinationPoint.rotation;
             playerController.enabled = true;
         }
         else
         {
-            PlayerRoot.position = destinationPoint.position;
-            PlayerRoot.rotation = destinationPoint.rotation;
+            if (leftEyeRequired) manager.TeleportLeftEye(destinationPoint);
+            else manager.TeleportRightEye(destinationPoint);
         }
     }
 }

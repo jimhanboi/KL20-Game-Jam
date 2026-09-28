@@ -35,7 +35,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
 
     [Header("Range Anchor")]
     [Tooltip("The eye's socket/attachment point on the player - range is measured from here.")]
-    [SerializeField] private Transform rangeAnchor;
+    public Transform rangeAnchor;
 
     [Header("Warning / Death")]
     [SerializeField] private float minWarningRange;

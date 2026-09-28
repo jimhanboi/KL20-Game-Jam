@@ -5647,7 +5647,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: de2bd52ecea7884498ebdcce155ecf29, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: cd756a3e9218f2a4182e73be76bb7039, type: 2}
+      objectReference: {fileID: 2100000, guid: 98916c89ba124c34897c0f9ef670b375, type: 2}
     - target: {fileID: 919132149155446097, guid: de2bd52ecea7884498ebdcce155ecf29, type: 3}
       propertyPath: m_Name
       value: building (1)
@@ -5761,6 +5761,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!64 &42917410
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27882,6 +27884,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &178320673
 GameObject:
   m_ObjectHideFlags: 0
@@ -40119,7 +40123,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b616b9ecffc6b2946b985c293aa75bb7, type: 2}
+  - {fileID: 2100000, guid: abc2c13928f948847bb80fa0a4108f67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -50538,6 +50542,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &354743952
 GameObject:
   m_ObjectHideFlags: 0
@@ -56116,7 +56122,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 80dbd213f778b934e9c8fc1a9753e79f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0f2a9c36190c8d8418c723c282687871, type: 2}
+      objectReference: {fileID: 2100000, guid: abc2c13928f948847bb80fa0a4108f67, type: 2}
     - target: {fileID: 919132149155446097, guid: 80dbd213f778b934e9c8fc1a9753e79f, type: 3}
       propertyPath: m_Name
       value: table(pc) (2)
@@ -58170,7 +58176,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 59cff06708fc01546aaf82609607da4f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: a854a3fb810bc98439e234e5f5042af9, type: 2}
+      objectReference: {fileID: 2100000, guid: 98916c89ba124c34897c0f9ef670b375, type: 2}
     - target: {fileID: 919132149155446097, guid: 59cff06708fc01546aaf82609607da4f, type: 3}
       propertyPath: m_Name
       value: disk (1)
@@ -58853,6 +58859,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1001 &517992256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60344,7 +60352,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b616b9ecffc6b2946b985c293aa75bb7, type: 2}
+  - {fileID: 2100000, guid: abc2c13928f948847bb80fa0a4108f67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73330,6 +73338,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &712500449
 GameObject:
   m_ObjectHideFlags: 0
@@ -125253,6 +125263,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1001 &943997411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125980,6 +125992,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1001 &985351450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134878,6 +134892,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &1165366498
 GameObject:
   m_ObjectHideFlags: 0
@@ -134979,6 +134995,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &1176476709
 GameObject:
   m_ObjectHideFlags: 0
@@ -138145,7 +138163,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2352e8d71b287e54ba9eaf9b8c255e3c, type: 2}
+  - {fileID: 2100000, guid: 98916c89ba124c34897c0f9ef670b375, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -169967,7 +169985,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: c629772358298b742b75b27e38e6c32d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0f2a9c36190c8d8418c723c282687871, type: 2}
+      objectReference: {fileID: 2100000, guid: abc2c13928f948847bb80fa0a4108f67, type: 2}
     - target: {fileID: 919132149155446097, guid: c629772358298b742b75b27e38e6c32d, type: 3}
       propertyPath: m_Name
       value: table (3)
@@ -176031,6 +176049,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1001 &1532750125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187251,6 +187271,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &1604098836
 GameObject:
   m_ObjectHideFlags: 0
@@ -204292,6 +204314,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1001 &1715878684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204405,6 +204429,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 0.15
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!64 &1740088353
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -205915,6 +205941,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &1797693533
 GameObject:
   m_ObjectHideFlags: 0
@@ -216793,6 +216821,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &1870364937
 GameObject:
   m_ObjectHideFlags: 0
@@ -222517,7 +222547,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8269af06baf4bd94aafe42fc5136afff, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 528dee46292fea441bbfd50f3ad7ae96, type: 2}
+      objectReference: {fileID: 2100000, guid: abc2c13928f948847bb80fa0a4108f67, type: 2}
     - target: {fileID: 919132149155446097, guid: 8269af06baf4bd94aafe42fc5136afff, type: 3}
       propertyPath: m_Name
       value: Clock
@@ -222640,6 +222670,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 1000
   shakeDuration: 2
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!114 &1912400828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224128,7 +224160,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 59cff06708fc01546aaf82609607da4f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: a854a3fb810bc98439e234e5f5042af9, type: 2}
+      objectReference: {fileID: 2100000, guid: 98916c89ba124c34897c0f9ef670b375, type: 2}
     - target: {fileID: 919132149155446097, guid: 59cff06708fc01546aaf82609607da4f, type: 3}
       propertyPath: m_Name
       value: disk
@@ -226426,6 +226458,8 @@ MonoBehaviour:
   dazeDuration: 1
   shakeStrength: 5
   shakeDuration: 0.3
+  Audio: {fileID: 0}
+  audioStart: 0.3
 --- !u!1 &2116013765
 GameObject:
   m_ObjectHideFlags: 0

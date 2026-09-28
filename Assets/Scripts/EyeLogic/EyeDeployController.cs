@@ -45,7 +45,7 @@ public class EyeDeployController : MonoBehaviour
     {
         socket = newAnchor;
         freeRoam.rangeAnchor = newAnchor;
-
+        returnPath.playerAnchor = newAnchor;
 
     }
 

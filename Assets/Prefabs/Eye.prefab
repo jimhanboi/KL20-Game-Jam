@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d87bb735bc6854d8f3cfbb8aa9df55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
-  duration: 0.5
-  strength: 10
-  vibrato: 10
+  duration: 2
+  strength: 3
+  vibrato: 5
   randomness: 90
 --- !u!1 &5670618306450486302
 GameObject:
@@ -403,6 +403,7 @@ MonoBehaviour:
   minVignetteIntensity: 0.2
   maxVignetteIntensity: 0.6
   enterTweenDuration: 0.3
+  rampExponent: 0.5
 --- !u!114 &2879589703353150267
 MonoBehaviour:
   m_ObjectHideFlags: 0

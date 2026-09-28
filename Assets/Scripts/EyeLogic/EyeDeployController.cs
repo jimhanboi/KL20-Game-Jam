@@ -38,8 +38,22 @@ public class EyeDeployController : MonoBehaviour
         returnPath.OnReturnComplete -= HandleReturnComplete;
     }
 
+    private bool inputLocked;
+
+    // Called by DeathManager. Stops this eye reading input and shuts off look + detection.
+    // Free roam stays enabled (just uncontrolled) so the eye decelerates rather than freezing mid-air.
+    public void LockInput()
+    {
+        inputLocked = true;
+        if (freeRoam != null) freeRoam.SetControlled(false);
+        if (eyeLook != null) eyeLook.enabled = false;
+        if (gazeDetection != null) gazeDetection.enabled = false;
+    }
+
     private void Update()
     {
+        if (inputLocked) return;
+
         var kb = Keyboard.current;
         if (kb != null && kb[toggleKey].wasPressedThisFrame && state == EyeDeployState.Roaming)
             Toggle();

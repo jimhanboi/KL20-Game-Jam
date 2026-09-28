@@ -647,20 +647,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "570c8f85efd043e1b532d9c3e8936fe9"
-                },
-                "m_SlotId": 0
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "5b3c840a1597449d9fa25295afc2a25d"
-                },
-                "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "58b1fab27a934c61a0ca6680a5f47666"
                 },
                 "m_SlotId": 3
@@ -1384,6 +1370,20 @@
                     "m_Id": "5ca13ca36cc7476895b54613378508a5"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "d8489917147648bea03b586fbf959c8f"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "5b3c840a1597449d9fa25295afc2a25d"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -4054,8 +4054,8 @@
     "m_ObjectId": "3b12c76e5f694238a2bbda04af52a760",
     "m_Title": "Add rim light and outline",
     "m_Position": {
-        "x": -499.20001220703127,
-        "y": 649.5999755859375
+        "x": -499.1998291015625,
+        "y": 649.60009765625
     }
 }
 
@@ -4445,7 +4445,7 @@
     "m_ObjectId": "4ec96c96a99f4730b5f2949365554b4e",
     "m_Title": "wobbly effect",
     "m_Position": {
-        "x": -2201.60009765625,
+        "x": -2201.599853515625,
         "y": -2881.60009765625
     }
 }
@@ -4801,7 +4801,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "X",
     "m_StageCapability": 3,
-    "m_Value": 9.0,
+    "m_Value": 3.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -5318,7 +5318,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "X",
     "m_StageCapability": 3,
-    "m_Value": 4.0,
+    "m_Value": 1.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -10006,7 +10006,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "X",
     "m_StageCapability": 3,
-    "m_Value": 0.0020000000949949028,
+    "m_Value": 0.00009999999747378752,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -11566,10 +11566,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 328.8000183105469,
-            "y": -512.7999877929688,
-            "width": 208.00003051757813,
-            "height": 325.60003662109377
+            "x": 345.60009765625,
+            "y": -630.3998413085938,
+            "width": 208.0001220703125,
+            "height": 325.5998840332031
         }
     },
     "m_Slots": [

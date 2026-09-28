@@ -1,8 +1,9 @@
 public interface IEyeDetect
 {
-    void OnGazeEnter(EyeDetection detectingCam);
-    void OnGazeExit(EyeDetection detectionCam);
-}
+    float GazeRange { get; }
 
-public interface ILeftEyeVisible : IEyeDetect { }
-public interface IRightEyeVisible : IEyeDetect { }
+    void OnRightEnter(EyeDetection detectingCam);
+    void OnRightExit(EyeDetection detectionCam);
+    void OnLeftEnter(EyeDetection detectingCam);
+    void OnLeftExit(EyeDetection detectionCam);
+}

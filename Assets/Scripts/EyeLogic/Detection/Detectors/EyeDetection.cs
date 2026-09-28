@@ -4,7 +4,7 @@ using UnityEngine;
 public class EyeDetection : MonoBehaviour
 {
     [Header("Identity")]
-    [Tooltip("Which interface this instance searches for: ILeftEyeVisible if true, IRightEyeVisible if false.")]
+    [Tooltip("Which callback pair this instance fires: OnLeftEnter/OnLeftExit if true, OnRightEnter/OnRightExit if false.")]
     [SerializeField] private bool isLeftEye = true;
 
     [Header("Detection")]
@@ -21,11 +21,14 @@ public class EyeDetection : MonoBehaviour
     [SerializeField] private LayerMask occlusionMask;
 
     [Header("Dwell")]
-    [Tooltip("How long the eye must continuously look at a target before OnGazeEnter fires.")]
+    [Tooltip("How long the eye must continuously look at a target before its Enter callback fires.")]
     [SerializeField] private float requiredGazeDuration = 0.5f;
 
+    public bool IsLeftEye => isLeftEye;
+    public Camera EyeCamera => eyeCamera;
+
     private readonly Collider[] overlapBuffer = new Collider[32]; // reused each frame to avoid GC allocation
-    private readonly HashSet<IEyeDetect> visibleTargets = new HashSet<IEyeDetect>();   // confirmed - OnGazeEnter already fired
+    private readonly HashSet<IEyeDetect> visibleTargets = new HashSet<IEyeDetect>();   // confirmed - Enter already fired
     private readonly HashSet<IEyeDetect> frameVisible = new HashSet<IEyeDetect>();     // this frame's raw qualifying set
     private readonly Dictionary<IEyeDetect, float> dwellTimers = new Dictionary<IEyeDetect, float>(); // unconfirmed, accumulating
     private readonly List<IEyeDetect> scratchRemovalList = new List<IEyeDetect>(); // reused for safe removal during iteration
@@ -47,10 +50,14 @@ public class EyeDetection : MonoBehaviour
             if (target == null) continue;
 
             if (!GeometryUtility.TestPlanesAABB(frustumPlanes, candidate.bounds))
-                continue; // outside the (leeway-expanded) view frustum
+                continue;
+
+            float sqrDistance = (candidate.bounds.center - eyeCamera.transform.position).sqrMagnitude;
+            if (sqrDistance > target.GazeRange * target.GazeRange)
+                continue;
 
             if (!HasLineOfSight(eyeCamera.transform.position, candidate))
-                continue; // in frustum but something is blocking the view
+                continue;
 
             frameVisible.Add(target);
 
@@ -63,7 +70,7 @@ public class EyeDetection : MonoBehaviour
                 {
                     dwellTimers.Remove(target);
                     visibleTargets.Add(target);
-                    target.OnGazeEnter(this);
+                    FireEnter(target);
                 }
                 else
                 {
@@ -91,21 +98,35 @@ public class EyeDetection : MonoBehaviour
         }
         foreach (var target in scratchRemovalList)
         {
-            target.OnGazeExit(this);
+            FireExit(target);
             visibleTargets.Remove(target);
         }
     }
 
     /// <summary>
-    /// The one place isLeftEye is actually used - a single statically-typed
-    /// GetComponent call either way, so this is fully compile-time checked with no
-    /// reflection, exactly like separate generic subclasses would have been.
+    /// Every candidate is now checked against the single IEyeDetect interface -
+    /// isLeftEye no longer changes which interface is looked up, only which
+    /// callback pair (see FireEnter/FireExit) gets invoked on the result.
     /// </summary>
     private IEyeDetect FindReceiver(Collider candidate)
     {
-        return isLeftEye
-            ? (IEyeDetect)candidate.GetComponent<ILeftEyeVisible>()
-            : candidate.GetComponent<IRightEyeVisible>();
+        return candidate.GetComponent<IEyeDetect>();
+    }
+
+    private void FireEnter(IEyeDetect target)
+    {
+        if (isLeftEye)
+            target.OnLeftEnter(this);
+        else
+            target.OnRightEnter(this);
+    }
+
+    private void FireExit(IEyeDetect target)
+    {
+        if (isLeftEye)
+            target.OnLeftExit(this);
+        else
+            target.OnRightExit(this);
     }
 
     /// <summary>
@@ -151,7 +172,7 @@ public class EyeDetection : MonoBehaviour
         // If the eye is recalled mid-gaze, make sure everything it was looking at gets
         // told the gaze ended - otherwise they're stuck reacting as if still watched.
         foreach (var target in visibleTargets)
-            target.OnGazeExit(this);
+            FireExit(target);
 
         visibleTargets.Clear();
         dwellTimers.Clear();

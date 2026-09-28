@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public enum EyeDeployState { Docked, Roaming, Returning }
 
@@ -87,7 +88,7 @@ public class EyeDeployController : MonoBehaviour
     {
         if (freeRoam != null)
         {
-            freeRoam.enabled = false;
+            freeRoam.enabled = false; // OnDisable clears velocity and the controlled flag
         }
         if (eyeLook != null)
         {
@@ -110,6 +111,9 @@ public class EyeDeployController : MonoBehaviour
         state = EyeDeployState.Docked;
         rb.useGravity = false;
         splitScreenView.Hide();
+
+        // Hiding the select indicator is handled by the manager (HandleEyeReturn),
+        // since it owns the Image references. This just announces the docking.
         OnReturnedEye?.Invoke(this);
     }
 
@@ -118,11 +122,13 @@ public class EyeDeployController : MonoBehaviour
         return state == EyeDeployState.Roaming;
     }
 
-    public void ActivateControl(bool activate, GameObject selectImg)
+    public void ActivateControl(bool activate, Image selectImg, Color selectedColor, Color unselectedColor)
     {
         if (selectImg != null)
         {
-            selectImg.SetActive(activate); // FIX: was always SetActive(true), now respects `activate`
+            bool shouldShow = activate || IsOut();   // show if being selected, OR already deployed
+            selectImg.gameObject.SetActive(shouldShow);
+            selectImg.color = activate ? selectedColor : unselectedColor;
         }
 
         if (activate)
@@ -132,7 +138,8 @@ public class EyeDeployController : MonoBehaviour
 
         if (freeRoam != null)
         {
-            freeRoam.enabled = activate;
+            // Stays enabled while deployed so it can decelerate; only input is switched.
+            freeRoam.SetControlled(activate);
         }
         if (eyeLook != null)
         {

@@ -12,7 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -46,17 +47,33 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _FPS: 2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: 0.01
     - _Speed: 3
+    - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Strength: 0.01
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     - _offsetStrength: 0.02
+    - _outline: 0
+    - _rimLight: 0
     - _speedX: 2
     - _speedXY: 9
     - _speedYZ: 4
     - _speedZ: 4
+    - _wobbly: 0
     - _wobblyStrength: 0.3
     m_Colors: []
   m_BuildTextureStacks: []

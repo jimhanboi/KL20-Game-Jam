@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 2879589703353150267}
   - component: {fileID: 129171993186865492}
   - component: {fileID: 6051545746846419201}
+  - component: {fileID: 8593302796685411587}
   m_Layer: 3
   m_Name: Eye
   m_TagString: Untagged
@@ -460,11 +461,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EyeAlignmentCheck
   eyeballCamera: {fileID: 7893107371213128080}
-  target: {fileID: 0}
+  targets: []
   positionTolerance: 10
   angleTolerance: 30
   alignThreshold: 0.5
   currentPercent: 0
+--- !u!135 &8593302796685411587
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670618306450486302}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8761932995929069199
 PrefabInstance:
   m_ObjectHideFlags: 0

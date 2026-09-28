@@ -21,6 +21,9 @@ public class FlashDaze : MonoBehaviour
     public float shakeStrength = 0.15f;
     public float shakeDuration = 0.3f;
 
+    [SerializeField] AudioSource Audio;
+    [SerializeField] float audioStart = 0.3f;
+
     private ColorAdjustments colorAdjustments;
 
     void Start()
@@ -36,7 +39,8 @@ public class FlashDaze : MonoBehaviour
             cameraShake.Shake(shakeDuration, shakeStrength);
             
         }
-
+        Audio.time = audioStart;
+        Audio.Play();
         // white flash
         DOTween.To(() => colorAdjustments.postExposure.value,
                     x => colorAdjustments.postExposure.value = x,

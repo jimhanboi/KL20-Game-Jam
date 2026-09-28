@@ -49,6 +49,18 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     [Tooltip("Shape of the ramp from min to max intensity across the warning range. 1 = linear, below 1 = appears sooner, above 1 = appears later.")]
     [SerializeField] private float rampExponent = 0.5f;
 
+
+    [Header("Move Audio")]
+    [Tooltip("Give each eye its own AudioSource.")]
+    [SerializeField] private AudioSource moveSource;
+    [SerializeField] private AudioClip moveLoopClip;
+    [Range(0f, 1f)]
+    [SerializeField] private float moveVolume = 0.5f;
+    [Tooltip("Horizontal speed above which the eye counts as moving.")]
+    [SerializeField] private float moveSpeedThreshold = 0.2f;
+    [Tooltip("How fast the volume fades in/out (volume/sec). Avoids clicks on start/stop.")]
+    [SerializeField] private float audioFadeSpeed = 6f;
+
     private Vignette vignette;
     private Coroutine enterTweenRoutine;
     private float warningBlend; // 0..1, eased in on entering the warning range
@@ -84,12 +96,41 @@ public class EyeFreeRoamNonVert : MonoBehaviour
             vignette.intensity.overrideState = true;
             vignette.intensity.value = 0f;
         }
+
+        if (moveSource != null)
+        {
+            moveSource.clip = moveLoopClip;
+            moveSource.loop = true;
+            moveSource.playOnAwake = false;
+            moveSource.volume = 0f;
+        }
+    }
+
+    private void UpdateMoveAudio()
+    {
+        if (moveSource == null || moveLoopClip == null) return;
+
+        Vector3 flat = rb.linearVelocity;
+        flat.y = 0f;
+
+        bool moving = !isDead
+            && flat.sqrMagnitude > moveSpeedThreshold * moveSpeedThreshold
+            && IsGrounded();
+
+        float target = moving ? moveVolume : 0f;
+        moveSource.volume = Mathf.MoveTowards(moveSource.volume, target, audioFadeSpeed * Time.deltaTime);
+
+        if (moving && !moveSource.isPlaying)
+            moveSource.Play();
+        else if (!moving && moveSource.isPlaying && moveSource.volume <= 0f)
+            moveSource.Stop();
     }
 
 
     private void OnDisable()
     {
         // Only reached on recall/dock, so don't leave stale motion behind.
+        if (moveSource != null) { moveSource.Stop(); moveSource.volume = 0f; }
         currentVelocity = Vector3.zero;
         isControlled = false;
         jumpQueued = false;
@@ -98,6 +139,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
 
     private void Update()
     {
+        UpdateMoveAudio();
         if (isDead) return;
 
         // Input is read here (wasPressedThisFrame is per-frame) and applied in FixedUpdate.

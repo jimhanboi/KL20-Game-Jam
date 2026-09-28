@@ -24,6 +24,9 @@ public class EyeDetection : MonoBehaviour
     [Tooltip("How long the eye must continuously look at a target before its Enter callback fires.")]
     [SerializeField] private float requiredGazeDuration = 0.5f;
 
+    public bool IsLeftEye => isLeftEye;
+    public Camera EyeCamera => eyeCamera;
+
     private readonly Collider[] overlapBuffer = new Collider[32]; // reused each frame to avoid GC allocation
     private readonly HashSet<IEyeDetect> visibleTargets = new HashSet<IEyeDetect>();   // confirmed - Enter already fired
     private readonly HashSet<IEyeDetect> frameVisible = new HashSet<IEyeDetect>();     // this frame's raw qualifying set
@@ -47,10 +50,14 @@ public class EyeDetection : MonoBehaviour
             if (target == null) continue;
 
             if (!GeometryUtility.TestPlanesAABB(frustumPlanes, candidate.bounds))
-                continue; // outside the (leeway-expanded) view frustum
+                continue;
+
+            float sqrDistance = (candidate.bounds.center - eyeCamera.transform.position).sqrMagnitude;
+            if (sqrDistance > target.GazeRange * target.GazeRange)
+                continue;
 
             if (!HasLineOfSight(eyeCamera.transform.position, candidate))
-                continue; // in frustum but something is blocking the view
+                continue;
 
             frameVisible.Add(target);
 

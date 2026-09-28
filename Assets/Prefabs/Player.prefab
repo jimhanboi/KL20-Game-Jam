@@ -683,6 +683,7 @@ MonoBehaviour:
     blurDuration: 1.5
     blurDelay: 0
     cameraShake: {fileID: 0}
+    flashDaze: {fileID: 0}
   rightEye:
     deployController: {fileID: 207504169804718991}
     freeRoam: {fileID: 3143149542406307995}
@@ -693,6 +694,7 @@ MonoBehaviour:
     blurDuration: 1.5
     blurDelay: 0
     cameraShake: {fileID: 0}
+    flashDaze: {fileID: 0}
   eyeManager: {fileID: 643637717198887767}
   ease:
     serializedVersion: 2
@@ -1473,14 +1475,17 @@ PrefabInstance:
     - {fileID: 7587575955556147436, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5670618306450486302, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4585920829610711406}
   m_SourcePrefab: {fileID: 100100000, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
 --- !u!114 &442892436177215668 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1505187702542165950, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
   m_PrefabInstance: {fileID: 1353041895412139786}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6662210476162544404}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f894be43961e9694ebf90ba55916a3db, type: 3}
@@ -1496,12 +1501,30 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4439430032827335850, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
   m_PrefabInstance: {fileID: 1353041895412139786}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6662210476162544404}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63798dc9c083af849a8720da5405be83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EyeFreeRoamNonVert
+--- !u!1 &6662210476162544404 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5670618306450486302, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
+  m_PrefabInstance: {fileID: 1353041895412139786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4585920829610711406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6662210476162544404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05793fb920e782b48a74870fee030af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitDetection
+  freeRoam: {fileID: 3412319461613290400}
 --- !u!1001 &1586027711582733361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1614,14 +1637,17 @@ PrefabInstance:
     - {fileID: 7587575955556147436, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5670618306450486302, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 328295912774517533}
   m_SourcePrefab: {fileID: 100100000, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
 --- !u!114 &207504169804718991 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1505187702542165950, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
   m_PrefabInstance: {fileID: 1586027711582733361}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6390790951805022255}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f894be43961e9694ebf90ba55916a3db, type: 3}
@@ -1637,12 +1663,30 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4439430032827335850, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
   m_PrefabInstance: {fileID: 1586027711582733361}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6390790951805022255}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63798dc9c083af849a8720da5405be83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EyeFreeRoamNonVert
+--- !u!1 &6390790951805022255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5670618306450486302, guid: d9085c0db93ed9941991b5d38798cc35, type: 3}
+  m_PrefabInstance: {fileID: 1586027711582733361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &328295912774517533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390790951805022255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05793fb920e782b48a74870fee030af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  freeRoam: {fileID: 3143149542406307995}
 --- !u!1001 &8481712503898350923
 PrefabInstance:
   m_ObjectHideFlags: 0

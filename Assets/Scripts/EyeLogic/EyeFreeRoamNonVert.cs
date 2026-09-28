@@ -86,6 +86,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
         }
     }
 
+
     private void OnDisable()
     {
         // Only reached on recall/dock, so don't leave stale motion behind.
@@ -222,7 +223,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
         return result.sqrMagnitude > 1f ? result.normalized : result;
     }
 
-    private void Die()
+    public void Die()
     {
         if (isDead) return;
         isDead = true;

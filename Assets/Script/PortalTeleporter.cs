@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class ReturntoTeleporter : MonoBehaviour
+public class PortalTeleporter : MonoBehaviour
 {
     [SerializeField] Transform player;      // drag your player object here
-    [SerializeField] Transform destination; // the teleporter (or a spot next to it)
+    [SerializeField] Transform destination; // drag the target object here
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == player || other.transform.IsChildOf(player))
+        if (other.name.Contains("PortalCollider"))
         {
             player.position = destination.position;
         }

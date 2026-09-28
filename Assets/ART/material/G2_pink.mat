@@ -146,7 +146,7 @@ Material:
     - _outline: 0
     - _rimLight: 0
     - _wobbly: 1
-    - _wobblyStrength: 0.001
+    - _wobblyStrength: 0.01
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -15,12 +15,16 @@ public class TestDetection : MonoBehaviour, IEyeDetect
 {
     [SerializeField] private Color leftEyeColor = Color.green;
     [SerializeField] private Color rightEyeColor = Color.blue;
-    [SerializeField] FlashDaze flash;
+    [SerializeField] FlashDaze rightFlash;
+    [SerializeField] FlashDaze leftFlash;
+    [SerializeField] float activateRange = 10f;
 
     private Renderer targetRenderer;
     private Color originalColor;
     private bool leftGazing;
     private bool rightGazing;
+
+    public float GazeRange => activateRange;
 
     private void Awake()
     {
@@ -44,7 +48,7 @@ public class TestDetection : MonoBehaviour, IEyeDetect
     {
         rightGazing = true;
         CameraShake shake = detectingCam.GetComponentInChildren<CameraShake>();
-        flash.TriggerDaze(shake);
+        rightFlash.TriggerDaze(shake);
         RefreshColor();
     }
 
@@ -57,6 +61,9 @@ public class TestDetection : MonoBehaviour, IEyeDetect
     public void OnLeftEnter(EyeDetection detectingCam)
     {
         leftGazing = true;
+        CameraShake shake = detectingCam.GetComponentInChildren<CameraShake>();
+
+        leftFlash.TriggerDaze(shake);
         RefreshColor();
     }
 

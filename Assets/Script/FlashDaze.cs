@@ -35,7 +35,7 @@ public class FlashDaze : MonoBehaviour
         if (cameraShake != null)
         {
             cameraShake.Shake(shakeDuration, shakeStrength);
-            //Debug.Log(cameraShake.transform.parent.name);
+            
         }
 
         // white flash

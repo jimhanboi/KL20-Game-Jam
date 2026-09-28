@@ -38,8 +38,31 @@ public class EyeDeployController : MonoBehaviour
         returnPath.OnReturnComplete -= HandleReturnComplete;
     }
 
+    private bool inputLocked;
+
+
+    public void ChangeAnchor(Transform newAnchor)
+    {
+        socket = newAnchor;
+        freeRoam.rangeAnchor = newAnchor;
+
+
+    }
+
+    // Called by DeathManager. Stops this eye reading input and shuts off look + detection.
+    // Free roam stays enabled (just uncontrolled) so the eye decelerates rather than freezing mid-air.
+    public void LockInput()
+    {
+        inputLocked = true;
+        if (freeRoam != null) freeRoam.SetControlled(false);
+        if (eyeLook != null) eyeLook.enabled = false;
+        if (gazeDetection != null) gazeDetection.enabled = false;
+    }
+
     private void Update()
     {
+        if (inputLocked) return;
+
         var kb = Keyboard.current;
         if (kb != null && kb[toggleKey].wasPressedThisFrame && state == EyeDeployState.Roaming)
             Toggle();
@@ -145,6 +168,31 @@ public class EyeDeployController : MonoBehaviour
         {
             eyeLook.enabled = activate;
         }
+    }
+
+    public void DeployAt(Vector3 position, Quaternion rotation)
+    {
+        if (inputLocked) return;
+        if (state == EyeDeployState.Returning) return; // cancel the return first if you want to allow this
+
+        eyeTransform.SetParent(null);
+        rb.useGravity = true;
+        rb.linearVelocity = Vector3.zero;   // rb.velocity on pre-Unity 6
+        rb.angularVelocity = Vector3.zero;
+
+        eyeTransform.SetPositionAndRotation(position, rotation);
+        rb.position = position;
+        rb.rotation = rotation;
+        Physics.SyncTransforms();
+
+        returnPath.StartTracking(position); // restarts the trail so it doesn't include the old location
+
+        if (freeRoam != null) freeRoam.enabled = true;
+        if (eyeLook != null) eyeLook.enabled = true;
+        if (gazeDetection != null) gazeDetection.enabled = true;
+
+        state = EyeDeployState.Roaming;
+        splitScreenView.Show(); // make sure Show() is safe to call twice
     }
 
     void Select()

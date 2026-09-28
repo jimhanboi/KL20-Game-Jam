@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,8 +5,9 @@ using UnityEngine.InputSystem;
 public class LevelSelect : MonoBehaviour
 {
     public Camera PlayerCamera;
-    public Transform PlayerRoot; // the object that actually moves (parent of the camera, e.g. your "Player" object)
+    public Transform EyeRoot; // the object that actually moves (parent of the camera, e.g. your "Player" object)
     public CharacterController playerController; // optional, only if your player uses one
+    [SerializeField] bool leftEyeRequired;
 
     public float interactDistance = 3f;
     public Transform destinationPoint; // where the player teleports to
@@ -34,6 +34,8 @@ public class LevelSelect : MonoBehaviour
     private Vector3 startScale;
     private bool isTransitioning = false;
 
+    [SerializeField] EyeControllerManager manager; // assign in the inspector
+
     void Start()
     {
         startPos = transform.localPosition;
@@ -47,7 +49,7 @@ public class LevelSelect : MonoBehaviour
         CheckIfLookedAt();
         HandleBop();
 
-        if (isLookingAtObject && Mouse.current.leftButton.wasPressedThisFrame)
+        if (isLookingAtObject && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             SelectLevel();
         }
@@ -93,7 +95,7 @@ public class LevelSelect : MonoBehaviour
     {
         Vector3 startWorldPos = transform.position;
         Vector3 targetWorldPos = PlayerCamera.transform.position +
-                                   (transform.position - PlayerCamera.transform.position).normalized * distanceFromCamera;
+                                 (transform.position - PlayerCamera.transform.position).normalized * distanceFromCamera;
 
         float t = 0f;
         while (t < travelDuration)
@@ -113,14 +115,18 @@ public class LevelSelect : MonoBehaviour
 
         yield return new WaitForSeconds(delayBeforeTeleport);
 
+        // Only fade if the fader exists and is intact
+        ScreenFader fader = ScreenFader.Instance;
+        bool canFade = fader != null && fader.fadeCanvasGroup != null;
+
         // fade to white
-        yield return ScreenFader.Instance.FadeIn(fadeInDuration);
+        if (canFade) yield return fader.FadeIn(fadeInDuration);
 
         // teleport the player
         TeleportPlayer();
 
         // fade back to normal
-        yield return ScreenFader.Instance.FadeOut(fadeOutDuration);
+        if (canFade) yield return fader.FadeOut(fadeOutDuration);
 
         // reset portal so it can be used again
         transform.position = startWorldPos;
@@ -135,14 +141,14 @@ public class LevelSelect : MonoBehaviour
             // CharacterController must be disabled before moving its transform directly,
             // otherwise it fights against the manual position change
             playerController.enabled = false;
-            PlayerRoot.position = destinationPoint.position;
-            PlayerRoot.rotation = destinationPoint.rotation;
+            EyeRoot.position = destinationPoint.position;
+            EyeRoot.rotation = destinationPoint.rotation;
             playerController.enabled = true;
         }
         else
         {
-            PlayerRoot.position = destinationPoint.position;
-            PlayerRoot.rotation = destinationPoint.rotation;
+            if (leftEyeRequired) manager.TeleportLeftEye(destinationPoint);
+            else manager.TeleportRightEye(destinationPoint);
         }
     }
 }

@@ -27,6 +27,17 @@ public class EyeControllerManager : MonoBehaviour
     Camera leftCam, rightCam;
     float leftLastSwap = -999f, rightLastSwap = -999f;
 
+    public void MoveLeftEye()
+    {
+        ToggleEye(LeftEye);
+    }
+
+    public void MoveRightEye()
+    {
+        ToggleEye(RightEye);
+    }
+
+
     private void Update()
     {
         var kb = Keyboard.current;
@@ -177,6 +188,16 @@ public class EyeControllerManager : MonoBehaviour
             if (!RightEye.enabled) RightEye.enabled = true;
             RightEye.ActivateControl(true, rightSelect, selectedColor, unselectedColor);
         }
+    }
+
+    public void TeleportLeftEye(Transform dest) => TeleportEye(LeftEye, dest);
+    public void TeleportRightEye(Transform dest) => TeleportEye(RightEye, dest);
+
+    void TeleportEye(EyeDeployController eye, Transform dest)
+    {
+        eye.ChangeAnchor(dest);                     // change the anchor first, so the eye knows where to deploy
+        eye.DeployAt(dest.position, dest.rotation); // move + deploy first
+        ToggleEye(eye);                             // then give it control and update the indicators
     }
 
     void HideSelect(Image img)

@@ -35,7 +35,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
 
     [Header("Range Anchor")]
     [Tooltip("The eye's socket/attachment point on the player - range is measured from here.")]
-    [SerializeField] private Transform rangeAnchor;
+    public Transform rangeAnchor;
 
     [Header("Warning / Death")]
     [SerializeField] private float minWarningRange;
@@ -44,11 +44,14 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     [SerializeField] private Volume vignetteVolume;
     [SerializeField] private float minVignetteIntensity = 0.2f;
     [SerializeField] private float maxVignetteIntensity = 0.6f;
+    [Tooltip("Seconds to fade the vignette in after entering the warning range. It scales the distance-driven intensity, so it never caps or delays it.")]
     [SerializeField] private float enterTweenDuration = 0.3f;
+    [Tooltip("Shape of the ramp from min to max intensity across the warning range. 1 = linear, below 1 = appears sooner, above 1 = appears later.")]
+    [SerializeField] private float rampExponent = 0.5f;
 
     private Vignette vignette;
     private Coroutine enterTweenRoutine;
-    private bool isTweeningIn;
+    private float warningBlend; // 0..1, eased in on entering the warning range
 
     private bool underWarning;
     private bool isDead;
@@ -119,6 +122,12 @@ public class EyeFreeRoamNonVert : MonoBehaviour
         if (distance >= maxRange)
         {
             Die();
+        }
+
+        if (underWarning)
+        {
+            Debug.Log("Warning");
+
         }
     }
 
@@ -217,6 +226,16 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        // Update stops after this, so don't leave the vignette frozen partway through its fade.
+        if (enterTweenRoutine != null)
+        {
+            StopCoroutine(enterTweenRoutine);
+            enterTweenRoutine = null;
+        }
+        warningBlend = 1f;
+        if (vignette != null) vignette.intensity.value = maxVignetteIntensity;
+
         OnDeath?.Invoke();
     }
 
@@ -225,7 +244,8 @@ public class EyeFreeRoamNonVert : MonoBehaviour
         if (enterTweenRoutine != null)
             StopCoroutine(enterTweenRoutine);
 
-        enterTweenRoutine = StartCoroutine(TweenVignetteIntensity(minVignetteIntensity, enterTweenDuration));
+        warningBlend = 0f;
+        enterTweenRoutine = StartCoroutine(TweenWarningBlend(enterTweenDuration));
     }
 
     private void OnExitWarning()
@@ -235,35 +255,31 @@ public class EyeFreeRoamNonVert : MonoBehaviour
             StopCoroutine(enterTweenRoutine);
             enterTweenRoutine = null;
         }
-        isTweeningIn = false;
+        warningBlend = 0f;
 
         if (vignette != null)
             vignette.intensity.value = 0f;
     }
 
-    private IEnumerator TweenVignetteIntensity(float targetValue, float duration)
+    // Eases the vignette in without ever overriding the distance-driven value.
+    private IEnumerator TweenWarningBlend(float duration)
     {
-        if (vignette == null) yield break;
-
-        isTweeningIn = true;
-        float startValue = vignette.intensity.value;
         float t = 0f;
 
         while (t < duration)
         {
             t += Time.deltaTime;
-            vignette.intensity.value = Mathf.Lerp(startValue, targetValue, t / duration);
+            warningBlend = Mathf.Clamp01(t / duration);
             yield return null;
         }
 
-        vignette.intensity.value = targetValue;
-        isTweeningIn = false;
+        warningBlend = 1f;
         enterTweenRoutine = null;
     }
 
     private void UpdateVignetteIntensity(float distance)
     {
-        if (vignette == null || isTweeningIn) return; // let the enter tween finish before taking over
+        if (vignette == null) return;
 
         if (distance <= minWarningRange)
         {
@@ -273,6 +289,9 @@ public class EyeFreeRoamNonVert : MonoBehaviour
 
         float clampedDistance = Mathf.Min(distance, maxRange);
         float percent = Mathf.InverseLerp(minWarningRange, maxRange, clampedDistance);
-        vignette.intensity.value = Mathf.Lerp(minVignetteIntensity, maxVignetteIntensity, percent);
+        float target = Mathf.Lerp(minVignetteIntensity, maxVignetteIntensity, Mathf.Pow(percent, rampExponent));
+
+        // Always follows distance; the blend only softens the moment of entering the zone.
+        vignette.intensity.value = target * warningBlend;
     }
 }

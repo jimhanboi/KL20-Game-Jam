@@ -24,15 +24,18 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: a975cdc310dcfdf4ba320744a54c8e91, type: 3}
   m_Parent: {fileID: 2100000, guid: 28796f534cb6fca4790a15a04c29712a, type: 2}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3

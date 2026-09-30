@@ -44,6 +44,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: f4b1262566a201644ab3960cb57625a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_099e77924c8f4457983f5d4f5b8a5a66_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e2763b3caf1f29746908015b7e6e9a45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_188b48d8cce94639bb2f41060a2454a8_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e2763b3caf1f29746908015b7e6e9a45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_c8e9df6c4f7e4d84a628c0b55ff94fbc_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 52f523aa04b2737488a6d940045147a3, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -85,6 +93,8 @@ Material:
     - _speedZ: 4
     - _wobbly: 0
     - _wobblyStrength: 0
-    m_Colors: []
+    m_Colors:
+    - _painterlyhighlight: {r: 1, g: 0.9902964, b: 0.5943396, a: 1}
+    - _painterlyshadow: {r: 0.7997321, g: 0.5064934, b: 0.8415094, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

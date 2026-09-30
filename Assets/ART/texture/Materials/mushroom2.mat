@@ -69,6 +69,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_099e77924c8f4457983f5d4f5b8a5a66_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e2763b3caf1f29746908015b7e6e9a45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_188b48d8cce94639bb2f41060a2454a8_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e2763b3caf1f29746908015b7e6e9a45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_c8e9df6c4f7e4d84a628c0b55ff94fbc_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 52f523aa04b2737488a6d940045147a3, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -137,6 +145,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _painterlyhighlight: {r: 1, g: 0.9902964, b: 0.5943396, a: 1}
+    - _painterlyshadow: {r: 0.7997321, g: 0.5064934, b: 0.8415094, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &267476263190759182

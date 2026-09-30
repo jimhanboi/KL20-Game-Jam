@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test1
-  m_Shader: {fileID: -6465566751694194690, guid: a975cdc310dcfdf4ba320744a54c8e91, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c61f36b14ecf72f44bb436a2c262598c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -29,6 +29,14 @@ Material:
     m_TexEnvs:
     - _BaseColour:
         m_Texture: {fileID: 2800000, guid: eff2b57ed7bea9f4baa12c4b4911068a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_099e77924c8f4457983f5d4f5b8a5a66_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 25b2576352cf7774da644daf9a6404a4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_188b48d8cce94639bb2f41060a2454a8_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e2763b3caf1f29746908015b7e6e9a45, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_c8e9df6c4f7e4d84a628c0b55ff94fbc_Texture_1_Texture2D:
@@ -65,19 +73,23 @@ Material:
     - _SrcBlendAlpha: 1
     - _Strength: 0.01
     - _Surface: 1
+    - _UV_offsetStrength: 0.01
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     - _offsetStrength: 0.02
-    - _outline: 0
-    - _rimLight: 0
+    - _outline: 1
+    - _rimLight: 1
     - _speedX: 2
     - _speedXY: 9
     - _speedYZ: 4
     - _speedZ: 4
-    - _wobbly: 0
-    - _wobblyStrength: 0.3
-    m_Colors: []
+    - _vertex_offsetStrength: 0.1
+    - _wobbly: 1
+    - _wobblyStrength: 0.02
+    m_Colors:
+    - _painterlyhighlight: {r: 1, g: 0.9902964, b: 0.5943396, a: 1}
+    - _painterlyshadow: {r: 0.7997321, g: 0.5064934, b: 0.8415094, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &9097081011320750476

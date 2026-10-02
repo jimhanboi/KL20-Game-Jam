@@ -24,6 +24,7 @@ public class TestDetection : MonoBehaviour, IEyeDetect
     void HandleLook(EyeDetection detectingCam)
     {
         CameraShake shake = detectingCam.GetComponentInChildren<CameraShake>();
+        Debug.Log(detectingCam);
         rightFlash.TriggerDaze(shake);
     }
 

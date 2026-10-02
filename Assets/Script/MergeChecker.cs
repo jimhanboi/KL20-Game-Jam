@@ -7,11 +7,15 @@ public class TargetPair
     public Transform[] leftTargets;
 }
 
+
+
 public class MergeChecker : MonoBehaviour
 {
     public EyeAlignmentCheck Righteye;
     public EyeAlignmentCheck Lefteye;
     public TargetPair[] puzzles;
+    public AudioSource CompletePuzzle;
+
 
     public float holdTime = 0.5f;
     public bool printPercent = false;   // tick this to also see live percentages every frame
@@ -93,11 +97,13 @@ public class MergeChecker : MonoBehaviour
     void PuzzleSolved()
     {
         Debug.Log("Puzzle " + (current + 1) + " solved!");
+        CompletePuzzle.Play();
 
         if (current + 1 >= puzzles.Length)
         {
             allDone = true;
             Debug.Log("You merged the puzzle!");
+            CompletePuzzle.Play();
         }
         else
         {

@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class LevelSelect : MonoBehaviour
 {
@@ -9,14 +10,16 @@ public class LevelSelect : MonoBehaviour
     public CharacterController playerController; // optional, only if your player uses one
     [SerializeField] bool leftEyeRequired;
 
-    public float interactDistance = 3f;
     public Transform destinationPoint; // where the player teleports to
     private bool isLookingAtObject = false;
+    private bool wasLookingAtObject = false;
 
     [Header("Bop Settings")]
     public float bobHeight = 0.1f;
-    public float bobSpeed = 4f;
-    public float returnSpeed = 8f;
+    public float bobSpeed = 4f;      // same meaning as before: one full up/down cycle takes 2π / bobSpeed seconds
+    public float returnSpeed = 8f;   // return takes roughly 1 / returnSpeed seconds
+    public Ease bobEase = Ease.InOutSine;
+    public Ease returnEase = Ease.OutQuad;
 
     [Header("Portal Travel Settings")]
     public float travelDuration = 2f;
@@ -33,6 +36,8 @@ public class LevelSelect : MonoBehaviour
     private Vector3 startPos;
     private Vector3 startScale;
     private bool isTransitioning = false;
+    private Tween bobTween;
+
 
     [SerializeField] EyeControllerManager manager; // assign in the inspector
 
@@ -45,9 +50,7 @@ public class LevelSelect : MonoBehaviour
     void Update()
     {
         if (isTransitioning) return;
-
-        CheckIfLookedAt();
-        HandleBop();
+        UpdateBop();
 
         if (isLookingAtObject && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -55,39 +58,56 @@ public class LevelSelect : MonoBehaviour
         }
     }
 
-    void CheckIfLookedAt()
+    void OnDestroy()
     {
-        Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, interactDistance))
-        {
-            if (hit.transform == transform)
-            {
-                isLookingAtObject = true;
-                return;
-            }
-        }
-
-        isLookingAtObject = false;
+        bobTween?.Kill();
     }
 
-    void HandleBop()
+
+    public void OnLook()
     {
+        isLookingAtObject = true;
+    }
+
+    public void OnStopLook()
+    {
+        isLookingAtObject= false;
+    }
+
+    // Only reacts when the look state changes, instead of every frame
+    void UpdateBop()
+    {
+        if (isLookingAtObject == wasLookingAtObject) return;
+        wasLookingAtObject = isLookingAtObject;
+
+        bobTween?.Kill();
+
         if (isLookingAtObject)
         {
-            float newY = startPos.y + Mathf.Sin(Time.time * bobSpeed) * bobHeight;
-            transform.localPosition = new Vector3(startPos.x, newY, startPos.z);
+            // Bob up and down forever (yoyo) until the player looks away
+            bobTween = transform
+                .DOLocalMoveY(startPos.y + bobHeight, Mathf.PI / bobSpeed)
+                .SetEase(bobEase)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetLink(gameObject);
         }
         else
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, Time.deltaTime * returnSpeed);
+            // Glide back to the resting position from wherever the bob currently is
+            bobTween = transform
+                .DOLocalMove(startPos, 1f / returnSpeed)
+                .SetEase(returnEase)
+                .SetLink(gameObject);
         }
     }
 
     void SelectLevel()
     {
         isTransitioning = true;
+
+        // Stop the bop so it doesn't fight the travel animation
+        bobTween?.Kill();
+
         StartCoroutine(TravelToPlayerThenTeleport());
     }
 
@@ -131,6 +151,9 @@ public class LevelSelect : MonoBehaviour
         // reset portal so it can be used again
         transform.position = startWorldPos;
         transform.localScale = startScale;
+
+        // Force the bop state to re-evaluate on the next frame
+        wasLookingAtObject = false;
         isTransitioning = false;
     }
 

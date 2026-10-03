@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard4
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 130f993bc78d70d4fa7985a0fc1d4f74, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 130f993bc78d70d4fa7985a0fc1d4f74, type: 3}
     m_RemovedGameObjects: []
@@ -229,11 +233,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992259}
   playerController: {fileID: 0}
   leftEyeRequired: 1
-  interactDistance: 3
   destinationPoint: {fileID: 869869724}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15
@@ -51459,6 +51464,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b06d3da6c5776e140b7c67d72cf65b60, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: b06d3da6c5776e140b7c67d72cf65b60, type: 3}
     m_RemovedGameObjects: []
@@ -51497,11 +51506,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992259}
   playerController: {fileID: 0}
   leftEyeRequired: 1
-  interactDistance: 3
   destinationPoint: {fileID: 1049067147}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15
@@ -60643,6 +60653,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6243792421200089366, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
       insertIndex: -1
       addedObject: {fileID: 517992267}
+    - targetCorrespondingSourceObject: {fileID: 6243792421200089366, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 517992273}
   m_SourcePrefab: {fileID: 100100000, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
 --- !u!4 &517992257 stripped
 Transform:
@@ -60749,6 +60762,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MouseLook
   mouseSensitivity: 0.02
   lookXLimit: 80
+--- !u!114 &517992273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517992262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b939375ea22b1b4d90637269312e5c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCast
+  PlayerCamera: {fileID: 517992263}
+  interactDistance: 3
+  shardLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  leftEyeScreen: {fileID: 625323539}
+  rightEyeScreen: {fileID: 2037567413}
 --- !u!1001 &518784233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63538,6 +63570,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3778486244093006384, guid: 34d6ec6e94c605f46ad27dbcb869420b, type: 3}
+--- !u!1 &625323539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1180443293415976028, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+  m_PrefabInstance: {fileID: 517992256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &628154609
 GameObject:
   m_ObjectHideFlags: 0
@@ -68975,6 +69012,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard5
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 43c4cdc3a3f9a504aa0339511363a704, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 43c4cdc3a3f9a504aa0339511363a704, type: 3}
     m_RemovedGameObjects: []
@@ -69013,11 +69054,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992257}
   playerController: {fileID: 0}
   leftEyeRequired: 0
-  interactDistance: 3
   destinationPoint: {fileID: 1207581896}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15
@@ -106682,6 +106724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b0f469827dc181647ac66b8283ab1433, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: b0f469827dc181647ac66b8283ab1433, type: 3}
     m_RemovedGameObjects: []
@@ -106741,11 +106787,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992257}
   playerController: {fileID: 0}
   leftEyeRequired: 0
-  interactDistance: 3
   destinationPoint: {fileID: 731226957}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15
@@ -111864,6 +111911,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06f5634832fe1e140a7cb71101f8dffd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 06f5634832fe1e140a7cb71101f8dffd, type: 3}
     m_RemovedGameObjects: []
@@ -111902,11 +111953,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992259}
   playerController: {fileID: 0}
   leftEyeRequired: 1
-  interactDistance: 3
   destinationPoint: {fileID: 786693019}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15
@@ -137515,6 +137567,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 35bf8890532ebfb40b0918ed2de05a9e, type: 3}
       propertyPath: m_Name
       value: Shard0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 35bf8890532ebfb40b0918ed2de05a9e, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -229388,6 +229444,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 029cfcf303bd6ad4e8c0f104dc2d428e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 029cfcf303bd6ad4e8c0f104dc2d428e, type: 3}
     m_RemovedGameObjects: []
@@ -229426,11 +229486,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992259}
   playerController: {fileID: 0}
   leftEyeRequired: 1
-  interactDistance: 3
   destinationPoint: {fileID: 2104556937}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15
@@ -229628,6 +229689,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4870109868964963270, guid: f2706877a7df67f46b1670a5b5390e18, type: 3}
+--- !u!1 &2037567413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1265617922507711536, guid: c38c45a6afa1869468614af309cbbb02, type: 3}
+  m_PrefabInstance: {fileID: 517992256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2045972685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -229700,6 +229766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shard3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f25ff4dd84e920945b1c8f051d5eb018, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: f25ff4dd84e920945b1c8f051d5eb018, type: 3}
     m_RemovedGameObjects: []
@@ -229738,11 +229808,12 @@ MonoBehaviour:
   EyeRoot: {fileID: 517992257}
   playerController: {fileID: 0}
   leftEyeRequired: 0
-  interactDistance: 3
   destinationPoint: {fileID: 1269019161}
   bobHeight: 0.1
   bobSpeed: 4
   returnSpeed: 8
+  bobEase: 4
+  returnEase: 6
   travelDuration: 1
   distanceFromCamera: 0.5
   targetScale: 15

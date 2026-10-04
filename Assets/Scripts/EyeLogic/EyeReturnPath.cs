@@ -141,6 +141,29 @@ public class EyeReturnPath : MonoBehaviour
         return simplified;
     }
 
+    /// <summary>Fills dest with the route the eye is on, from the anchor to the eye. Used by the vein.</summary>
+    public void GetRoutePoints(List<Vector3> dest)
+    {
+        dest.Clear();
+        dest.Add(playerAnchor != null ? playerAnchor.position
+               : recordedPath.Count > 0 ? recordedPath[0] : rb.position);
+
+        if (isReturning && activeWaypoints != null)
+        {
+            // activeWaypoints runs eye -> anchor; the vein wants anchor -> eye.
+            for (int i = activeWaypoints.Count - 1; i >= currentIndex; i--)
+                dest.Add(activeWaypoints[i]);
+        }
+        else if (isRecording)
+        {
+            for (int i = 1; i < recordedPath.Count; i++)
+                dest.Add(recordedPath[i]);
+        }
+
+        dest.Add(rb.position);
+    }
+
+
     private bool HasClearLine(Vector3 from, Vector3 to)
     {
         Vector3 delta = to - from;

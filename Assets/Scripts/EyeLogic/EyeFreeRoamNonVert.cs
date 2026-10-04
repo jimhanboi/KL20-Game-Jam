@@ -17,6 +17,8 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     [SerializeField] private float maxRange = 10f;
 
     [Header("Jump")]
+
+    [SerializeField] bool allowJump;
     [SerializeField] private Key jumpKey = Key.Space;
     [Tooltip("How high the eye rises on a jump, in world units. Launch speed is derived from this and gravity.")]
     [SerializeField] private float jumpHeight = 1.5f;
@@ -144,7 +146,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
 
         // Input is read here (wasPressedThisFrame is per-frame) and applied in FixedUpdate.
         var kb = Keyboard.current;
-        if (isControlled && kb != null && kb[jumpKey].wasPressedThisFrame)
+        if (isControlled && kb != null && kb[jumpKey].wasPressedThisFrame && allowJump)
             jumpQueued = true;
 
         float distance = Vector3.Distance(rangeAnchor.position, rb.position);

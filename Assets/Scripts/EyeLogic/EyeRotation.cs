@@ -14,6 +14,8 @@ public class EyeRotation : MonoBehaviour
     private float pitch;
     private Vector2 pendingDelta;
 
+    public bool CanRotate = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +34,7 @@ public class EyeRotation : MonoBehaviour
 
     private void Update()
     {
+        if (!CanRotate) return;
         HandleInput(); 
     }
 
@@ -46,6 +49,7 @@ public class EyeRotation : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(!CanRotate) return; 
         HandleRotation();
     }
 

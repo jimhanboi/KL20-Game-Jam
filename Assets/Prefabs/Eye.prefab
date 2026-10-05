@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 6051545746846419201}
   - component: {fileID: 8593302796685411587}
   - component: {fileID: 8173424869356846273}
+  - component: {fileID: 8186549482701255369}
   m_Layer: 3
   m_Name: Eye
   m_TagString: Untagged
@@ -607,6 +608,7 @@ MonoBehaviour:
   acceleration: 20
   deceleration: 12
   maxRange: 30
+  allowJump: 0
   jumpKey: 1
   jumpHeight: 1.5
   groundMask:
@@ -809,6 +811,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8186549482701255369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670618306450486302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed7355657f9a734dbe35a4593a1c010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaneView
+  cam: {fileID: 1636545434696101988}
+  seamIsOnRight: 1
+  xTolerance: 0.06
+  minY: 0.25
+  maxY: 0.75
+  minFacing: 0.7
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 2039
 --- !u!1001 &8761932995929069199
 PrefabInstance:
   m_ObjectHideFlags: 0

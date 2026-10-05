@@ -15,7 +15,7 @@ public class PlayerCast : MonoBehaviour
     {
         LevelSelect target = null;
 
-        if (!leftEyeScreen.activeSelf && !rightEyeScreen.activeSelf)
+        if (!leftEyeScreen.activeSelf || !rightEyeScreen.activeSelf)
         {
             Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, shardLayer))

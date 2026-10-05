@@ -83,6 +83,9 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     private Collider col;
     private bool jumpQueued; // set in Update, consumed in FixedUpdate
 
+
+    public bool CanMove = true;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -142,7 +145,7 @@ public class EyeFreeRoamNonVert : MonoBehaviour
     private void Update()
     {
         UpdateMoveAudio();
-        if (isDead) return;
+        if (isDead || !CanMove) return;
 
         // Input is read here (wasPressedThisFrame is per-frame) and applied in FixedUpdate.
         var kb = Keyboard.current;

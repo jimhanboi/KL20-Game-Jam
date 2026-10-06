@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class MergeGlow : MonoBehaviour
+public class ItemMergeGlow : MonoBehaviour
 {
     [SerializeField] Color glowColor = new Color(1f, 0.75f, 0.85f, 1f);
     [SerializeField] float peakIntensity = 4f;
@@ -10,16 +10,11 @@ public class MergeGlow : MonoBehaviour
     [SerializeField] float settleTime = 1f;
     [SerializeField] Ease riseEase = Ease.InQuad;
 
-    class GlowTarget
-    {
-        public Material material;
-        public bool usesEmission;
-        public string colorProperty;
-        public Color originalColor;
-    }
+    [SerializeField] string colorProperty = "_GlowColor";
+    [SerializeField] string amountProperty = "_GlowAmount";
 
-    Dictionary<SeamPair, List<GlowTarget>> targetsByPair = new Dictionary<SeamPair, List<GlowTarget>>();
-    List<GlowTarget> activeTargets;
+    Dictionary<SeamPair, List<Material>> materialsByPair = new Dictionary<SeamPair, List<Material>>();
+    List<Material> activeMaterials;
     Sequence glowSequence;
     float level;
 
@@ -41,13 +36,13 @@ public class MergeGlow : MonoBehaviour
     // Frees the material instances created for the glow.
     void OnDestroy()
     {
-        foreach (KeyValuePair<SeamPair, List<GlowTarget>> entry in targetsByPair)
+        foreach (KeyValuePair<SeamPair, List<Material>> entry in materialsByPair)
         {
             for (int i = 0; i < entry.Value.Count; i++)
             {
-                if (entry.Value[i].material != null)
+                if (entry.Value[i] != null)
                 {
-                    Destroy(entry.Value[i].material);
+                    Destroy(entry.Value[i]);
                 }
             }
         }
@@ -57,7 +52,7 @@ public class MergeGlow : MonoBehaviour
     // then settles down to the resting glow.
     void Glow(SeamPair pair, float overSec)
     {
-        activeTargets = GetTargets(pair);
+        activeMaterials = GetMaterials(pair);
         ApplyLevel(0f);
 
         if (glowSequence != null)
@@ -71,52 +66,43 @@ public class MergeGlow : MonoBehaviour
         glowSequence.Append(DOTween.To(() => level, ApplyLevel, restingIntensity, settleTime).SetEase(Ease.OutQuad));
     }
 
-    // Writes the current glow level to every material of the pair.
+    // Writes the current glow amount to every material of the pair.
     void ApplyLevel(float value)
     {
         level = value;
 
-        if (activeTargets == null)
+        if (activeMaterials == null)
         {
             return;
         }
 
-        for (int i = 0; i < activeTargets.Count; i++)
+        for (int i = 0; i < activeMaterials.Count; i++)
         {
-            GlowTarget target = activeTargets[i];
-
-            if (target.usesEmission)
-            {
-                target.material.SetColor("_EmissionColor", glowColor * value);
-            }
-            else
-            {
-                Color brightened = target.originalColor * (1f + value);
-                brightened.a = target.originalColor.a;
-                target.material.SetColor(target.colorProperty, brightened);
-            }
+            activeMaterials[i].SetFloat(amountProperty, value);
         }
     }
 
-    // Returns the glow targets for a pair, building them the first time only.
-    List<GlowTarget> GetTargets(SeamPair pair)
+    // Returns the pair's glow materials, building them the first time only.
+    List<Material> GetMaterials(SeamPair pair)
     {
-        List<GlowTarget> targets;
-        if (targetsByPair.TryGetValue(pair, out targets))
+        List<Material> materials;
+        if (materialsByPair.TryGetValue(pair, out materials))
         {
-            return targets;
+            return materials;
         }
 
-        targets = new List<GlowTarget>();
-        AddPieceTargets(pair.pieceA, targets);
-        AddPieceTargets(pair.pieceB, targets);
-        targetsByPair[pair] = targets;
+        materials = new List<Material>();
+        AddPieceMaterials(pair.pieceA, materials);
+        AddPieceMaterials(pair.pieceB, materials);
+        materialsByPair[pair] = materials;
 
-        return targets;
+        Debug.Log("MergeGlow: found " + materials.Count + " glow materials");
+        return materials;
     }
 
-    // Creates material instances for every mesh on the piece (ignoring the hint mask copies).
-    void AddPieceTargets(SeamPiece piece, List<GlowTarget> targets)
+    // Creates material instances for every mesh on the piece (ignoring the hint mask copies)
+    // and keeps only those that have the glow properties.
+    void AddPieceMaterials(SeamPiece piece, List<Material> list)
     {
         MeshRenderer[] renderers = piece.GetComponentsInChildren<MeshRenderer>(true);
 
@@ -127,56 +113,20 @@ public class MergeGlow : MonoBehaviour
                 continue;
             }
 
-            Material[] materials = renderers[i].materials;
+            Material[] instances = renderers[i].materials;
 
-            for (int m = 0; m < materials.Length; m++)
+            for (int m = 0; m < instances.Length; m++)
             {
-                GlowTarget target = MakeTarget(materials[m]);
-                if (target != null)
+                if (!instances[m].HasProperty(amountProperty))
                 {
-                    targets.Add(target);
+                    Debug.LogWarning("MergeGlow: " + instances[m].name + " has no property " + amountProperty);
+                    continue;
                 }
+
+                instances[m].SetColor(colorProperty, glowColor);
+                instances[m].SetFloat(amountProperty, 0f);
+                list.Add(instances[m]);
             }
         }
-    }
-
-    // Prepares one material for glowing. Uses emission with the base texture as the emission map
-    // when the shader supports it, otherwise brightens the base colour. Returns null if neither works.
-    GlowTarget MakeTarget(Material material)
-    {
-        GlowTarget target = new GlowTarget();
-        target.material = material;
-
-        if (material.HasProperty("_EmissionColor"))
-        {
-            target.usesEmission = true;
-
-            material.EnableKeyword("_EMISSION");
-            material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
-
-            if (material.HasProperty("_EmissionMap") && material.GetTexture("_EmissionMap") == null)
-            {
-                material.SetTexture("_EmissionMap", material.mainTexture);
-            }
-
-            material.SetColor("_EmissionColor", Color.black);
-            return target;
-        }
-
-        if (material.HasProperty("_BaseColor"))
-        {
-            target.colorProperty = "_BaseColor";
-        }
-        else if (material.HasProperty("_Color"))
-        {
-            target.colorProperty = "_Color";
-        }
-        else
-        {
-            return null;
-        }
-
-        target.originalColor = material.GetColor(target.colorProperty);
-        return target;
     }
 }
